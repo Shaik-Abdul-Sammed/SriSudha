@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage --runInBand",
+    "e2e": "cypress open",
+    "e2e:run": "cypress run",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -38,6 +40,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "babel-jest": "^30.3.0",
+    "cypress": "^13.6.5",
+    "cypress-axe": "^1.2.3",
     "eslint": "^10.2.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",

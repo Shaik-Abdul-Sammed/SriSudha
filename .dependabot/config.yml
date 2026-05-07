@@ -1,0 +1,53 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/frontend'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '03:00'
+    open-pull-requests-limit: 10
+    reviewers:
+      - 'Abdul9010150809'
+    allow:
+      - dependency-type: 'production'
+      - dependency-type: 'development'
+    rebase-strategy: 'disabled'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+
+  - package-ecosystem: 'npm'
+    directory: '/backend'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '03:00'
+    open-pull-requests-limit: 10
+    reviewers:
+      - 'Abdul9010150809'
+    allow:
+      - dependency-type: 'production'
+      - dependency-type: 'development'
+    rebase-strategy: 'disabled'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+
+  - package-ecosystem: 'docker'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '03:00'
+    reviewers:
+      - 'Abdul9010150809'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '03:00'
+    reviewers:
+      - 'Abdul9010150809'

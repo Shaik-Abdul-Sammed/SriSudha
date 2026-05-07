@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: sri-sudha-db
+    environment:
+      POSTGRES_USER: sri_sudha
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-sri_sudha_dev_pass}
+      POSTGRES_DB: sri_sudha
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U sri_sudha']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: sri-sudha-cache
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: sri-sudha-backend
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgresql://sri_sudha:${DB_PASSWORD:-sri_sudha_dev_pass}@postgres:5432/sri_sudha
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-sri-sudha-dev-secret}
+      PORT: 4000
+    ports:
+      - '4000:4000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/src:/app/backend/src
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: sri-sudha-frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost:4000/api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  default:
+    name: sri-sudha-network
