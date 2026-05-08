@@ -26,6 +26,15 @@ dist/
 build/
 .cache/
 
+# Cypress (E2E)
+cypress/videos/
+cypress/screenshots/
+cypress/results/
+
+# Firebase local
+.firebase/
+firebase-debug.log
+
 # Logs
 *.log
 npm-debug.log*
