@@ -14,20 +14,38 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        process: 'readonly',
+      },
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
   {
-    files: ['**/*.test.{js,jsx}', '**/__tests__/**/*.{js,jsx}'],
+    files: ['**/*.test.{js,jsx}', '**/__tests__/**/*.{js,jsx}', 'jest.setup.js'],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.jest,
+        ...globals.node,
       },
     },
     rules: {
       'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
+    // Cypress E2E tests use global `cy`, `Cypress`, etc.
+    files: ['cypress/**/*.js', 'cypress/**/*.jsx', 'cypress/**/*.cy.js', 'cypress/**/*.cy.jsx'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.cypress,
+      },
+      parserOptions: { ecmaVersion: 'latest' },
+    },
+    rules: {
+      'no-undef': 'off',
     },
   },
 ])

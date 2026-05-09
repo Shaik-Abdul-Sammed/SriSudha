@@ -52,10 +52,23 @@ export default function GlobalSearch({ routes = [], currentRole = 'student', cla
   const inputRef = useRef()
   const { t } = useI18n()
 
+  const scopedRoutes = useMemo(() => {
+    if (!currentRole) return routes
+    return routes.filter((route) => route.role === currentRole)
+  }, [routes, currentRole])
+
   const indexedRoutes = useMemo(
-    () => routes.map((r) => ({ ...r, title: toTitle(r.slug), haystack: `${r.slug} ${toTitle(r.slug)} ${r.role}` })),
-    [routes],
+    () => scopedRoutes.map((r) => ({ ...r, title: toTitle(r.slug), haystack: `${r.slug} ${toTitle(r.slug)} ${r.role}` })),
+    [scopedRoutes],
   )
+
+  const routeTitleByPath = useMemo(() => {
+    const map = new Map()
+    indexedRoutes.forEach((route) => {
+      map.set(route.routePath, route.title)
+    })
+    return map
+  }, [indexedRoutes])
 
   useEffect(() => {
     function onDoc(event) {
@@ -114,9 +127,18 @@ export default function GlobalSearch({ routes = [], currentRole = 'student', cla
       .slice(0, 8)
   }, [indexedRoutes, q])
 
-  const listItems = q.trim() ? results : recent
+  const listItems = useMemo(() => {
+    if (q.trim()) return results
+    return recent
+      .filter((item) => !currentRole || item.role === currentRole)
+      .map((item) => ({
+        ...item,
+        title: item.title || routeTitleByPath.get(item.routePath) || item.query || 'Untitled module',
+      }))
+  }, [q, results, recent, currentRole, routeTitleByPath])
 
   async function openRoute(item) {
+    if (!item?.routePath) return
     navigate(item.routePath)
     setOpen(false)
     setQ('')

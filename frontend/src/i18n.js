@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const translations = {
   en: {
@@ -25,36 +25,50 @@ const translations = {
     search_no_results: 'कोई परिणाम नहीं',
     language: 'भाषा'
   },
-  mr: {
-    brand: 'श्री सुधा',
-    directory: 'निर्देशिका',
-    entry: 'प्रवेश',
-    login: 'लॉगिन',
-    dashboard: 'डॅशबोर्ड',
-    pages: 'पाने',
-    search_placeholder: 'मॉड्यूल शोधा...',
-    search_recent: 'अलीकडील शोध',
-    search_no_results: 'परिणाम नाहीत',
-    language: 'भाषा'
+  te: {
+    brand: 'శ్రీ సుధ',
+    directory: 'డైరెక్టరీ',
+    entry: 'ఎంట్రీ',
+    login: 'లాగిన్',
+    dashboard: 'డ్యాష్‌బోర్డ్',
+    pages: 'పేజీలు',
+    search_placeholder: 'మాడ్యూల్‌లను శోధించండి...',
+    search_recent: 'ఇటీవల శోధనలు',
+    search_no_results: 'ఫలితాలు లేవు',
+    language: 'భాష'
   }
 }
 
 const I18nContext = createContext(null)
 
 export function I18nProvider({ children }) {
-  const defaultLang = localStorage.getItem('sri-sudha-language') || 'en'
-  const [locale, setLocale] = useState(defaultLang)
+  const [locale, setLocaleState] = useState(() => {
+    const saved = localStorage.getItem('sri-sudha-language')
+    // If saved language is no longer supported, default to 'en'
+    if (saved && ['en', 'hi', 'te'].includes(saved)) {
+      return saved
+    }
+    return 'en'
+  })
 
-  function t(key) {
+  useEffect(() => {
+    localStorage.setItem('sri-sudha-language', locale)
+    document.documentElement.lang = locale
+  }, [locale])
+
+  const t = (key) => {
     return translations[locale]?.[key] ?? translations.en[key] ?? key
   }
 
-  function setLanguage(lang) {
-    setLocale(lang)
-    localStorage.setItem('sri-sudha-language', lang)
+  const setLanguage = (lang) => {
+    if (translations[lang]) {
+      setLocaleState(lang)
+    }
   }
 
-  return React.createElement(I18nContext.Provider, { value: { t, locale, setLanguage } }, children)
+  const value = { t, locale, setLanguage }
+
+  return React.createElement(I18nContext.Provider, { value }, children)
 }
 
 export function useI18n() {

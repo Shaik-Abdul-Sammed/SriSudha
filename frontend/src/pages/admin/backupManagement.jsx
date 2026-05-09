@@ -35,17 +35,16 @@ export default function Page() {
   useEffect(() => {
     let active = true
 
-    refresh()
-      .catch(() => {
-        if (active) {
-          setMessage('Backup service is unavailable in this environment.')
-        }
-      })
-      .finally(() => {
-        if (active) {
-          setLoading(false)
-        }
-      })
+    ;(async () => {
+      try {
+        await refresh()
+      } catch (err) {
+          if (active) setMessage('Backup service is unavailable in this environment.')
+          console.error(err)
+        } finally {
+        if (active) setLoading(false)
+      }
+    })()
 
     return () => {
       active = false

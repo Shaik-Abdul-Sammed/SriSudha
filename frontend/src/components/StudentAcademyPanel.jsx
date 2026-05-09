@@ -21,7 +21,7 @@ function Card({ title, children }) {
 
 export default function StudentAcademyPanel() {
   const authContext = useContext(AuthContext) || {}
-  const { login = async () => {}, user } = authContext
+  const { login = async () => {} } = authContext
   const [selected, setSelected] = useState(studentDummyIds[0]?.id || '')
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')

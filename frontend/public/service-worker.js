@@ -6,6 +6,35 @@ const ASSETS_TO_CACHE = [
 ]
 
 // Install event
+
+// Helpers for offline IndexedDB operations
+function getOfflineSearches(db) {
+  return new Promise((resolve, reject) => {
+    try {
+      const tx = db.transaction('offlineSearches', 'readonly')
+      const store = tx.objectStore('offlineSearches')
+      const req = store.getAll()
+      req.onsuccess = () => resolve(req.result || [])
+      req.onerror = () => reject(req.error)
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+function removeOfflineSearch(db, id) {
+  return new Promise((resolve, reject) => {
+    try {
+      const tx = db.transaction('offlineSearches', 'readwrite')
+      const store = tx.objectStore('offlineSearches')
+      const req = store.delete(id)
+      req.onsuccess = () => resolve()
+      req.onerror = () => reject(req.error)
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {

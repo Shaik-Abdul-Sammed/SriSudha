@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "test": "jest --runInBand",
+    "test:file": "jest --runInBand --watchAll=false --testPathPatterns",
     "test:coverage": "jest --coverage --runInBand",
     "e2e": "cypress open",
     "e2e:run": "cypress run",

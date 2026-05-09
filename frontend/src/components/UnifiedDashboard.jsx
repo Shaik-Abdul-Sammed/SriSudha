@@ -1,7 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import firestoreService from '../services/firestoreService';
 import { logCustomEvent } from '../services/firebaseConfig';
+
+// Role-specific data loaders kept at module scope to keep stable identity
+async function loadAdminDashboard() {
+  const stats = {
+    totalUsers: 0,
+    activeToday: 0,
+    systemHealth: 'Good',
+    pendingApprovals: 0
+  };
+  return { stats };
+}
+
+async function loadTeacherDashboard() {
+  const stats = {
+    studentCount: 0,
+    assignmentsPending: 0,
+    submissionsToGrade: 0,
+    classesScheduled: 0
+  };
+  return { stats };
+}
+
+async function loadStudentDashboard() {
+  const stats = {
+    assignmentsCompleted: 0,
+    avgGrade: 0,
+    attendancePercentage: 0,
+    upcomingDeadlines: 0
+  };
+  return { stats };
+}
+
+async function loadParentDashboard() {
+  const stats = {
+    childrenEnrolled: 0,
+    avgPerformance: 0,
+    attendanceOverall: 0,
+    communicationsReceived: 0
+  };
+  return { stats };
+}
+
+async function loadRoleSpecificData(role) {
+  switch (role) {
+    case 'admin':
+      return await loadAdminDashboard();
+    case 'teacher':
+      return await loadTeacherDashboard();
+    case 'student':
+      return await loadStudentDashboard();
+    case 'parent':
+      return await loadParentDashboard();
+    default:
+      return {};
+  }
+}
 
 /**
  * Unified Dashboard Component
@@ -18,7 +74,6 @@ const UnifiedDashboard = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     if (!user?.uid) return;
 
@@ -64,60 +119,6 @@ const UnifiedDashboard = () => {
     };
   }, [user?.uid, user?.role]);
 
-  const loadRoleSpecificData = async (role) => {
-    switch (role) {
-      case 'admin':
-        return await loadAdminDashboard();
-      case 'teacher':
-        return await loadTeacherDashboard();
-      case 'student':
-        return await loadStudentDashboard();
-      case 'parent':
-        return await loadParentDashboard();
-      default:
-        return {};
-    }
-  };
-
-  const loadAdminDashboard = async () => {
-    const stats = {
-      totalUsers: 0,
-      activeToday: 0,
-      systemHealth: 'Good',
-      pendingApprovals: 0
-    };
-    return { stats };
-  };
-
-  const loadTeacherDashboard = async () => {
-    const stats = {
-      studentCount: 0,
-      assignmentsPending: 0,
-      submissionsToGrade: 0,
-      classesScheduled: 0
-    };
-    return { stats };
-  };
-
-  const loadStudentDashboard = async () => {
-    const stats = {
-      assignmentsCompleted: 0,
-      avgGrade: 0,
-      attendancePercentage: 0,
-      upcomingDeadlines: 0
-    };
-    return { stats };
-  };
-
-  const loadParentDashboard = async () => {
-    const stats = {
-      childrenEnrolled: 0,
-      avgPerformance: 0,
-      attendanceOverall: 0,
-      communicationsReceived: 0
-    };
-    return { stats };
-  };
 
   const StatCard = ({ title, value, icon }) => (
     <div className="bg-white p-4 rounded-lg shadow-md border-l-4 border-blue-500">

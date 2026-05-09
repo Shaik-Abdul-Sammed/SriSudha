@@ -13,6 +13,13 @@ const roleDefaults = {
   admin: { username: 'admin', password: 'admin123' },
 }
 
+const roleInfo = {
+  student: { icon: '👨‍🎓', color: '#3B82F6', title: 'Student', desc: 'Access your academics' },
+  faculty: { icon: '👨‍🏫', color: '#10B981', title: 'Faculty', desc: 'Manage your courses' },
+  parent: { icon: '👨‍👩‍👧', color: '#F59E0B', title: 'Parent', desc: 'Monitor progress' },
+  admin: { icon: '⚙️', color: '#EF4444', title: 'Admin', desc: 'System control' },
+}
+
 function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
@@ -20,6 +27,7 @@ function LoginPage() {
   const [role, setRole] = useState('student')
   const [username, setUsername] = useState(roleDefaults.student.username)
   const [password, setPassword] = useState(roleDefaults.student.password)
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -45,9 +53,14 @@ function LoginPage() {
   }
 
   return (
-    <div
-      className="min-vh-100 d-flex align-items-center justify-content-center py-5 login-shell"
-    >
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem 1rem',
+      background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.08)), linear-gradient(180deg, #f0f9ff, #ffffff)'
+    }}>
       <div className="container">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -55,94 +68,339 @@ function LoginPage() {
           transition={{ duration: 0.5, type: 'spring' }}
           className="row justify-content-center"
         >
-          <div className="col-12 col-md-8 col-lg-5">
-            <div className="card glass-card border-0 p-4 p-md-5 login-card">
-              <div className="text-center mb-4">
-                <Link to="/entry" className="text-decoration-none d-inline-block mb-3">
-                  <span className="badge bg-light text-primary border px-3 py-2 rounded-pill">
-                    <i className="bi bi-arrow-left me-1"></i> Back to Portal
-                  </span>
-                </Link>
-                <h1 className="h3 fw-bold mb-2 text-gradient">Secure Central Login</h1>
-                <p className="text-muted small">Access your {instituteName} services via secure authentication.</p>
+          <div className="col-12 col-md-10 col-lg-5">
+            {/* Header */}
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+              className="text-center mb-5"
+            >
+              <Link to="/entry" className="text-decoration-none d-inline-block mb-4">
+                <span style={{
+                  display: 'inline-block',
+                  padding: '0.5rem 1.2rem',
+                  backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                  border: '1px solid rgba(37, 99, 235, 0.3)',
+                  borderRadius: '2rem',
+                  color: '#2563EB',
+                  fontSize: '0.875rem',
+                  fontWeight: '600',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(37, 99, 235, 0.2)';
+                  e.currentTarget.style.borderColor = 'rgba(37, 99, 235, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(37, 99, 235, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(37, 99, 235, 0.3)';
+                }}>
+                  ← Back to Home
+                </span>
+              </Link>
+              <h1 style={{
+                fontSize: '2.5rem',
+                fontWeight: '800',
+                marginBottom: '0.5rem',
+                background: 'linear-gradient(135deg, #2563EB, #06B6D4)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                Welcome Back
+              </h1>
+              <p style={{
+                color: '#64748b',
+                fontSize: '1rem',
+                marginTop: '0.5rem'
+              }}>
+                Sign in to your {instituteName} account
+              </p>
+            </motion.div>
+
+            {/* Main Card */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.92)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                borderRadius: '1.5rem',
+                padding: '3rem 2rem',
+                boxShadow: '0 12px 40px rgba(15, 23, 42, 0.12)'
+              }}
+            >
+              {/* Role Selection */}
+              <div className="mb-5">
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '700',
+                  color: '#1e293b',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  marginBottom: '1rem'
+                }}>
+                  Select Your Role
+                </label>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))',
+                  gap: '0.75rem'
+                }}>
+                  {Object.entries(roleInfo).map(([roleKey, roleData]) => (
+                    <motion.button
+                      key={roleKey}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleRoleChange(roleKey)}
+                      style={{
+                        padding: '1rem',
+                        borderRadius: '1rem',
+                        border: role === roleKey ? `2px solid ${roleData.color}` : '2px solid #e2e8f0',
+                        background: role === roleKey ? `${roleData.color}15` : '#f8fafc',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (role !== roleKey) {
+                          e.currentTarget.style.borderColor = roleData.color;
+                          e.currentTarget.style.background = `${roleData.color}08`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (role !== roleKey) {
+                          e.currentTarget.style.borderColor = '#e2e8f0';
+                          e.currentTarget.style.background = '#f8fafc';
+                        }
+                      }}
+                    >
+                      <span style={{ fontSize: '1.75rem' }}>{roleData.icon}</span>
+                      <span style={{
+                        fontSize: '0.75rem',
+                        fontWeight: '600',
+                        color: role === roleKey ? roleData.color : '#64748b'
+                      }}>
+                        {roleData.title}
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="form-label fw-semibold small text-uppercase tracking-wider" htmlFor="role">
-                    Select Identity Role
-                  </label>
-                  <select
-                    id="role"
-                    className="form-select form-select-lg shadow-sm"
-                    value={role}
-                    onChange={(event) => handleRoleChange(event.target.value)}
-                  >
-                    <option value="student">🎓 Student Account</option>
-                    <option value="faculty">👨‍🏫 Faculty Account</option>
-                    <option value="parent">👪 Parent Account</option>
-                    <option value="admin">🛡️ System Admin</option>
-                  </select>
-                </div>
-
-                <div className="mb-4">
-                  <label className="form-label fw-semibold small" htmlFor="username">
-                    LDAP Username / LDAP ID
+                {/* Username Input */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="mb-4"
+                >
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    color: '#1e293b',
+                    marginBottom: '0.5rem'
+                  }}>
+                    Username
                   </label>
                   <input
-                    id="username"
-                    className="form-control form-control-lg shadow-sm"
-                    placeholder="Enter your LDAP ID"
+                    className="form-control"
+                    placeholder="Enter your ID"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                     required
+                    style={{
+                      padding: '0.85rem 1.1rem',
+                      borderRadius: '0.75rem',
+                      border: '2px solid #e2e8f0',
+                      fontSize: '1rem',
+                      fontWeight: '500',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#2563EB';
+                      e.currentTarget.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e2e8f0';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
                   />
-                </div>
+                </motion.div>
 
-                <div className="mb-4">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <label className="form-label fw-semibold small mb-0" htmlFor="password">
+                {/* Password Input */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="mb-4"
+                >
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '0.5rem'
+                  }}>
+                    <label style={{
+                      fontSize: '0.875rem',
+                      fontWeight: '600',
+                      color: '#1e293b',
+                      margin: 0
+                    }}>
                       Password
                     </label>
-                    <a href="#" className="small text-decoration-none text-primary">Forgot Password?</a>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        fontSize: '0.8rem',
+                        color: '#2563EB',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontWeight: '500',
+                        textDecoration: 'underline'
+                      }}
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
                   </div>
                   <input
-                    id="password"
-                    type="password"
-                    className="form-control form-control-lg shadow-sm mt-2"
+                    type={showPassword ? 'text' : 'password'}
+                    className="form-control"
                     placeholder="••••••••"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     required
+                    style={{
+                      padding: '0.85rem 1.1rem',
+                      borderRadius: '0.75rem',
+                      border: '2px solid #e2e8f0',
+                      fontSize: '1rem',
+                      fontWeight: '500',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#2563EB';
+                      e.currentTarget.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e2e8f0';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
                   />
-                </div>
+                </motion.div>
 
-                {error ? (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="alert alert-danger py-2 small rounded-3">
-                    <i className="bi bi-exclamation-triangle-fill me-2"></i>{error}
+                {/* Error Message */}
+                {error && (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    style={{
+                      padding: '0.85rem 1rem',
+                      marginBottom: '1.5rem',
+                      backgroundColor: '#fee2e2',
+                      border: '1px solid #fecaca',
+                      borderRadius: '0.75rem',
+                      color: '#dc2626',
+                      fontSize: '0.875rem',
+                      fontWeight: '500'
+                    }}
+                  >
+                    ⚠️ {error}
                   </motion.div>
-                ) : null}
+                )}
 
-                <button className="btn btn-primary btn-lg w-100 shadow mt-3 rounded-pill fw-bold" type="submit" disabled={loading}>
+                {/* Submit Button */}
+                <motion.button 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn btn-primary w-100"
+                  type="submit" 
+                  disabled={loading}
+                  style={{
+                    padding: '0.9rem 1.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '700',
+                    borderRadius: '0.75rem',
+                    background: loading ? '#94a3b8' : 'linear-gradient(135deg, #2563EB, #06B6D4)',
+                    border: 'none',
+                    color: 'white',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 6px 20px rgba(37, 99, 235, 0.3)',
+                    marginTop: '1.5rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!loading) {
+                      e.currentTarget.style.boxShadow = '0 10px 28px rgba(37, 99, 235, 0.4)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.3)';
+                  }}
+                >
                   {loading ? (
-                    <span><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Authenticating...</span>
+                    <span>🔄 Authenticating...</span>
                   ) : (
-                    <span>Secure Login <i className="bi bi-lock-fill ms-1"></i></span>
+                    <span>🔓 Sign In</span>
                   )}
-                </button>
+                </motion.button>
               </form>
 
-              <div className="mt-4 pt-3 border-top text-center">
-                <div className="small text-muted bg-light rounded p-2 border">
-                  <strong>Demo Note:</strong> The selected role credentials have been auto-filled for ease of testing.
+              {/* Demo Info */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                style={{
+                  marginTop: '2rem',
+                  paddingTop: '1.5rem',
+                  borderTop: '1px solid #e2e8f0'
+                }}
+              >
+                <div style={{
+                  padding: '1rem',
+                  backgroundColor: '#f0fdf4',
+                  border: '1px solid #dcfce7',
+                  borderRadius: '0.75rem',
+                  fontSize: '0.875rem',
+                  color: '#15803d'
+                }}>
+                  <strong>💡 Demo Tip:</strong> Credentials are auto-filled for testing. Credentials change based on selected role.
                 </div>
-                {role === 'student' ? (
-                  <div className="small text-muted bg-light rounded p-2 border mt-2 text-start">
-                    <strong>Sample student IDs:</strong> {studentDummyIds.map((student) => student.id).join(', ')}
-                  </div>
-                ) : null}
-              </div>
-            </div>
+                {role === 'student' && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                      marginTop: '0.75rem',
+                      padding: '0.75rem',
+                      backgroundColor: '#dbeafe',
+                      border: '1px solid #93c5fd',
+                      borderRadius: '0.75rem',
+                      fontSize: '0.8rem',
+                      color: '#1e40af'
+                    }}
+                  >
+                    <strong>Sample IDs:</strong> {studentDummyIds.map((s) => s.id).join(', ')}
+                  </motion.div>
+                )}
+              </motion.div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

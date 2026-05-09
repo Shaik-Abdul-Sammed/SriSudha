@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // API configuration - resolves at runtime, not module load time
 let apiBaseURL = null
 

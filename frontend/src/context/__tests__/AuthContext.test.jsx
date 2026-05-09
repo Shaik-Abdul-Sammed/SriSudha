@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { AuthProvider, AuthContext } from '../AuthContext';
+import { AuthProvider } from '../AuthContext';
 import { useAuth } from '../../hooks/useAuth';
 
 // Mock the authService

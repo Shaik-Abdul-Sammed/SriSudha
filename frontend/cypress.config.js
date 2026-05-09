@@ -5,6 +5,8 @@ export default {
     viewportHeight: 720,
     setupNodeEvents(on, config) {
       // implement node event listeners here
+      void on
+      return config
     },
   },
   component: {
