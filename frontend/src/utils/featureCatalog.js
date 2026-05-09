@@ -24,6 +24,16 @@ export const studentFeatures = [
   'Certificate Requests',
   'Profile Settings',
   'Complaint Box',
+  'Student IDs',
+  'Student Academy',
+  'JEE Mains Prep',
+  'NEET Prep',
+  'MPC Courses',
+  'BIPC Courses',
+  'MBIPC Courses',
+  'Weekly Exams',
+  'References Hub',
+  'Sections Planner',
 ]
 
 export const facultyFeatures = [
@@ -105,7 +115,10 @@ export const adminFeatures = [
   'SMS Gateway UI',
   'Email Gateway UI',
   'Helpdesk Console',
+  'Backup Management',
   'Backup Status',
+  'Backup Export',
+  'Restore Points',
   'System Health',
   'Audit Logs',
 ]

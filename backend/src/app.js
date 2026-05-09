@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { createSearchRouter } from './routes/searchRoutes.js'
+import { createBackupRouter } from './routes/backupRoutes.js'
 
 // Security headers middleware
 function securityHeadersMiddleware(req, res, next) {
@@ -22,6 +23,7 @@ function errorHandler(err, req, res, next) {
 
 export function createApp({ db } = {}) {
   const app = express()
+  const backupRouter = createBackupRouter(db)
 
   app.use(cors())
   app.use(express.json())
@@ -33,8 +35,10 @@ export function createApp({ db } = {}) {
 
   // API v1 routes
   app.use('/api/v1/search', createSearchRouter(db))
+  app.use('/api/v1/backup', backupRouter)
   // Backward compatibility: also mount on /api/search
   app.use('/api/search', createSearchRouter(db))
+  app.use('/api/backup', backupRouter)
 
   // 404 handler
   app.use((req, res) => {

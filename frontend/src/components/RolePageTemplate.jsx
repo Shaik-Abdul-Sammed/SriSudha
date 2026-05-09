@@ -104,7 +104,7 @@ function splitItems(items, chunkCount) {
   )
 }
 
-function RolePageTemplate({ role, title, description }) {
+function RolePageTemplate({ role, title, description, children }) {
   const { user, language, updateLanguage, logout } = useAuth()
   const roleFeatures = roleFeatureMap[role] ?? []
   const sectionBlueprints = roleSectionMap[role] ?? []
@@ -154,6 +154,8 @@ function RolePageTemplate({ role, title, description }) {
           </div>
         </div>
       </div>
+
+      {children ? <div className="mb-3">{children}</div> : null}
 
       <div className="row g-3 mb-3">
         <div className="col-6 col-lg-3">

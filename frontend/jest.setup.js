@@ -20,3 +20,22 @@ if (!globalThis.import.meta) {
     },
   }
 }
+
+const originalConsoleError = console.error.bind(console)
+
+beforeAll(() => {
+  jest.spyOn(console, 'error').mockImplementation((...args) => {
+    const [message] = args
+      if (typeof message === 'string') {
+        if (message.includes('not wrapped in act')) return
+        if (message.includes('Dashboard error')) return
+        if (message.includes('Database connection failed')) return
+      }
+
+      originalConsoleError(...args)
+  })
+})
+
+afterAll(() => {
+  console.error.mockRestore?.()
+})

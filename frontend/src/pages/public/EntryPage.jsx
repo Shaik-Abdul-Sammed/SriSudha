@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { courseTracks, studentDummyIds } from '../../utils/studentCatalog'
 
 const instituteName = 'Sri Sudha'
 
@@ -43,6 +44,44 @@ function EntryPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="row g-3 mt-1">
+        <div className="col-12 col-lg-6">
+          <div className="card border-0 shadow-sm h-100">
+            <div className="card-body p-4">
+              <h2 className="h5 mb-3">Student Demo IDs</h2>
+              <div className="d-grid gap-2">
+                {studentDummyIds.map((student) => (
+                  <div key={student.id} className="border rounded-3 p-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <div className="fw-semibold">{student.name}</div>
+                      <div className="small text-muted">{student.stream} · {student.section}</div>
+                    </div>
+                    <span className="badge text-bg-light border">{student.id}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-12 col-lg-6">
+          <div className="card border-0 shadow-sm h-100">
+            <div className="card-body p-4">
+              <h2 className="h5 mb-3">Entrance Exam Tracks</h2>
+              <div className="d-grid gap-2">
+                {courseTracks.map((track) => (
+                  <div key={track.title} className="border rounded-3 p-3">
+                    <div className="fw-semibold">{track.title}</div>
+                    <div className="small text-muted">{track.stream} · {track.section}</div>
+                    <div className="small">{track.focus}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 import { instituteStats } from '../utils/mockData'
+import StudentAcademyPanel from './StudentAcademyPanel'
 
 const roleTitle = {
   student: 'Student Dashboard',
@@ -40,6 +41,10 @@ function DashboardHome({ role, routes }) {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="mt-4">
+        <StudentAcademyPanel />
       </div>
     </div>
   )

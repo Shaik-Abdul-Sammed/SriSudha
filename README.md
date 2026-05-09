@@ -4,7 +4,7 @@
 ![Code Quality](https://img.shields.io/badge/lint-0%20errors-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-60%25%2B-blue)
 ![Security](https://img.shields.io/badge/security-headers%20configured-blue)
-![Docker](https://img.shields.io/badge/docker-ready-blue)
+![Docker](https://img.shields.io/badge/docker-optional-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 🎯 Overview
@@ -45,9 +45,8 @@ Sri Sudha is a production-ready ERP system for educational institutions with com
 
 ### Prerequisites
 - Node.js 18.x or 20.x
-- Docker & Docker Compose (optional)
-- PostgreSQL 15 (or use Docker)
-- Redis (or use Docker)
+- Docker & Docker Compose, only if you want to run the container stack
+- PostgreSQL 15 and Redis, only if you want to run the external services locally
 
 ### Option 1: Local Development
 
@@ -63,23 +62,20 @@ cp .env.example .env
 npm --prefix frontend install
 npm --prefix backend install
 
-# 4. Start PostgreSQL and Redis (or use Docker)
-# Make sure they're running on localhost:5432 and localhost:6379
-
-# 5. Start backend
+# 4. Start backend in memory-backed mode
 npm --prefix backend run dev
 # Backend runs on http://localhost:4000
 
-# 6. Start frontend (in new terminal)
+# 5. Start frontend (in new terminal)
 npm --prefix frontend run dev
 # Frontend runs on http://localhost:5173
 
-# 7. Run tests
+# 6. Run tests
 npm --prefix frontend run test
 npm --prefix backend test
 ```
 
-### Option 2: Docker Compose (Recommended)
+### Option 2: Docker Compose
 
 ```bash
 # 1. Clone and setup
@@ -102,6 +98,8 @@ docker-compose logs -f
 # 5. Stop everything
 docker-compose down
 ```
+
+If Docker access is blocked on the machine, use the local development path above. The backend now falls back to an in-memory store for the recent search and backup flows when no Postgres URL is configured.
 
 ## 📋 Running Tests
 

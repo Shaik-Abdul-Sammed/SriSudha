@@ -1,9 +1,16 @@
+import { studentDummyIds } from '../utils/studentCatalog'
+
+const studentUsers = studentDummyIds.map((student, index) => ({
+  username: student.id,
+  password: 'student123',
+  name: student.name,
+  section: student.section,
+  stream: student.stream,
+  alias: index === 0 ? 'student' : null,
+}))
+
 const users = {
-  student: {
-    username: 'student',
-    password: 'student123',
-    name: 'Ananya Reddy',
-  },
+  student: studentUsers[0],
   faculty: {
     username: 'faculty',
     password: 'faculty123',
@@ -26,8 +33,11 @@ export async function loginWithRole({ role, username, password }) {
     setTimeout(resolve, 500)
   })
 
-  const user = users[role]
-  if (!user || user.username !== username || user.password !== password) {
+  const user = role === 'student'
+    ? studentUsers.find((candidate) => candidate.username === username || candidate.alias === username)
+    : users[role]
+
+  if (!user || user.password !== password) {
     throw new Error('Invalid credentials. Use the demo credentials shown on the login page.')
   }
 
@@ -37,6 +47,8 @@ export async function loginWithRole({ role, username, password }) {
       role,
       name: user.name,
       username: user.username,
+      section: user.section,
+      stream: user.stream,
     },
   }
 }

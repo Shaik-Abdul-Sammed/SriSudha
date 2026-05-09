@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAuth } from '../../hooks/useAuth'
+import { studentDummyIds } from '../../utils/studentCatalog'
 
 const instituteName = 'Sri Sudha'
 
 const roleDefaults = {
-  student: { username: 'student', password: 'student123' },
+  student: { username: studentDummyIds[0].id, password: 'student123' },
   faculty: { username: 'faculty', password: 'faculty123' },
   parent: { username: 'parent', password: 'parent123' },
   admin: { username: 'admin', password: 'admin123' },
@@ -135,6 +136,11 @@ function LoginPage() {
                 <div className="small text-muted bg-light rounded p-2 border">
                   <strong>Demo Note:</strong> The selected role credentials have been auto-filled for ease of testing.
                 </div>
+                {role === 'student' ? (
+                  <div className="small text-muted bg-light rounded p-2 border mt-2 text-start">
+                    <strong>Sample student IDs:</strong> {studentDummyIds.map((student) => student.id).join(', ')}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

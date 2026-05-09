@@ -1,6 +1,6 @@
 # Sri Sudha Backend
 
-Express + PostgreSQL backend for persistent app data.
+Express backend for educational ERP data with optional PostgreSQL persistence.
 
 ## Features
 - Health endpoint: `GET /api/health`
@@ -21,7 +21,7 @@ npm install
 cp .env.example .env
 ```
 
-3. Create database schema:
+3. Create database schema only if you are using PostgreSQL:
 
 ```bash
 psql "$DATABASE_URL" -f sql/schema.sql
@@ -32,6 +32,8 @@ psql "$DATABASE_URL" -f sql/schema.sql
 ```bash
 npm run dev
 ```
+
+If `DATABASE_URL` is unset, the backend uses the in-memory fallback for recent search and backup routes, so no local Postgres instance is required.
 
 ## Request example
 
