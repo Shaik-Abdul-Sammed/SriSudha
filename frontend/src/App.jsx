@@ -7,7 +7,8 @@ import { useAuth } from './hooks/useAuth'
 import EntryPage from './pages/public/EntryPage'
 import LoginPage from './pages/public/LoginPage'
 import './App.css'
-import NavBar from './components/NavBar'
+import Layout from './components/Layout'
+import ProfilePage from './pages/common/ProfilePage'
 import { ToastProvider } from './components/ToastProvider'
 
 const instituteName = 'Sri Sudha'
@@ -181,11 +182,12 @@ function App() {
     <BrowserRouter>
       <I18nProvider>
       <ToastProvider>
-        <NavBar routes={generatedRoutes} />
         <Routes>
-        <Route path="/" element={<RedirectHome />} />
-        <Route path="/entry" element={<EntryPage />} />
-        <Route path="/login" element={<LoginPage />} />
+          <Route element={<Layout routes={generatedRoutes} />}>
+            <Route path="/" element={<RedirectHome />} />
+            <Route path="/entry" element={<EntryPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
 
         <Route element={<ProtectedRoute role="student" />}>
           <Route
@@ -223,9 +225,10 @@ function App() {
           </Route>
         ))}
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-        </ToastProvider>
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </ToastProvider>
       </I18nProvider>
     </BrowserRouter>
   )

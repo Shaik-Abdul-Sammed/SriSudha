@@ -10,8 +10,8 @@ describe('EntryPage', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByText(/Sri Sudha ERP Experience/i)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Continue to Login/i })).toHaveAttribute('href', '/login')
+    expect(screen.getByText(/Educational ERP/i)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Access Portal/i })).toHaveAttribute('href', '/login')
     expect(screen.getByRole('link', { name: /Explore Modules/i })).toHaveAttribute('href', '/directory')
   })
 })

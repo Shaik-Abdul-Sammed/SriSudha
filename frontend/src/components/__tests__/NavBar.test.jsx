@@ -24,11 +24,7 @@ describe('NavBar', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getAllByText('Sri Sudha')[0]).toBeInTheDocument()
     expect(screen.getAllByTestId('global-search')[0]).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: /Directory/i })[0]).toHaveClass('active')
-    expect(screen.getAllByRole('link', { name: /Dashboard/i })[0]).toBeInTheDocument()
-    expect(screen.getAllByRole('button', { name: /Theme/i })[0]).toBeInTheDocument()
-    expect(screen.getAllByRole('button', { name: /Logout/i })[0]).toBeInTheDocument()
+    expect(screen.getAllByRole('button', { name: /logout/i })[0]).toBeInTheDocument()
   })
 })

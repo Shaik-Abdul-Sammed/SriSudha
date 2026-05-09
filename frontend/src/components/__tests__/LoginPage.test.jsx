@@ -28,11 +28,11 @@ describe('LoginPage', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByLabelText(/LDAP Username/i)).toHaveValue('ss26@school.com')
-    expect(screen.getByLabelText(/^Password$/i)).toHaveValue('student123')
+    expect(screen.getByText(/Username \/ ID/i)).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(/••••••••/i)).toHaveValue('student123')
 
-    await user.click(screen.getByRole('button', { name: /Secure Login/i }))
+    await user.click(screen.getByRole('button', { name: /Login Securely/i }))
 
-    expect(mockLogin).toHaveBeenCalledWith({ role: 'student', username: 'ss26@school.com', password: 'student123' })
+    expect(mockLogin).toHaveBeenCalledWith({ role: 'student', username: 'ss26', password: 'student123' })
   })
 })

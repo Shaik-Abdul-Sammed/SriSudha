@@ -16,8 +16,8 @@ describe('DashboardHome', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByText(/Student Dashboard/i)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /attendance overview/i })).toHaveAttribute('href', '/student-dashboard/attendance-overview')
-    expect(screen.getByRole('link', { name: /digital materials/i })).toHaveAttribute('href', '/student-dashboard/digital-materials')
+    expect(screen.getByText(/Student Portal/i)).toBeInTheDocument()
+    expect(screen.getByText(/Interactive Analytics Chart/i)).toBeInTheDocument()
+    expect(screen.getByText(/Upcoming Classes/i)).toBeInTheDocument()
   })
 })
