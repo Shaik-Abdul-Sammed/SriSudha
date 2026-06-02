@@ -1,7 +1,10 @@
 import express from 'express'
+import fs from 'fs'
+import path from 'path'
 import cors from 'cors'
 import { createSearchRouter } from './routes/searchRoutes.js'
 import { createBackupRouter } from './routes/backupRoutes.js'
+import { createTranslateRouter } from './routes/translateRoutes.js'
 
 // Security headers middleware
 function securityHeadersMiddleware(req, res, next) {
@@ -39,6 +42,39 @@ export function createApp({ db } = {}) {
   // Backward compatibility: also mount on /api/search
   app.use('/api/search', createSearchRouter(db))
   app.use('/api/backup', backupRouter)
+  app.use('/api/v1/translate', createTranslateRouter())
+
+  // Serve frontend static build if available (e.g., frontend/dist)
+  let servedFrontend = false
+  try {
+    const frontendDist = path.join(process.cwd(), 'frontend', 'dist')
+    if (fs.existsSync(frontendDist)) {
+      servedFrontend = true
+      app.use(express.static(frontendDist))
+
+      // Root path serves index.html
+      app.get('/', (_req, res) => {
+        res.sendFile(path.join(frontendDist, 'index.html'))
+      })
+
+      // For SPA client-side routing: serve index.html for non-API routes
+      app.get('*', (req, res, next) => {
+        if (req.path.startsWith('/api')) return next()
+        res.sendFile(path.join(frontendDist, 'index.html'))
+      })
+    }
+  } catch (err) {
+    // If any error, continue without static serving
+    // eslint-disable-next-line no-console
+    console.warn('Frontend static assets not served:', err?.message || err)
+  }
+
+  // If frontend not served, provide a simple root endpoint to avoid 404
+  if (!servedFrontend) {
+    app.get('/', (_req, res) => {
+      res.json({ message: 'Backend running. Frontend assets not found. Build frontend into frontend/dist to serve the SPA.' })
+    })
+  }
 
   // 404 handler
   app.use((req, res) => {

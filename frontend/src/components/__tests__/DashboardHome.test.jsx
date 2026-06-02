@@ -2,6 +2,10 @@ import { MemoryRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import DashboardHome from '../DashboardHome'
 
+jest.mock('../../hooks/useAuth', () => ({
+  useAuth: () => ({ user: { name: 'Test User', role: 'student' } }),
+}))
+
 describe('DashboardHome', () => {
   it('shows metric cards and module links', () => {
     render(

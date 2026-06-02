@@ -21,6 +21,11 @@ if (!globalThis.import.meta) {
   }
 }
 
+// jsdom doesn't implement window.scrollTo; mock to silence tests and animation libs
+if (typeof globalThis.scrollTo !== 'function') {
+  globalThis.scrollTo = () => {}
+}
+
 const originalConsoleError = console.error.bind(console)
 
 beforeAll(() => {

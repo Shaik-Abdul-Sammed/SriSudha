@@ -4,6 +4,15 @@ import { studentDummyIds } from '../../utils/studentCatalog'
 
 const VIOLET = '#7C3AED'
 
+// Get today's date in YYYY-MM-DD format
+const getTodayDate = () => {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 const sessions = [
   { id: 1, student: 'Sai Sree', date: '2026-05-07', type: 'Academic Concern', duration: '25 min', notes: 'Discussed weak performance in trigonometry. Suggested extra practice problems and reference to HC Verma.', action: 'Weekly check-in scheduled', followUp: '2026-05-14' },
   { id: 2, student: 'Anika Rao', date: '2026-05-05', type: 'Career Guidance', duration: '40 min', notes: 'Explored JEE Mains preparation strategy. Recommended joining the accelerator batch.', action: 'Enrolled in JEE sprint sessions', followUp: '2026-05-20' },
@@ -82,7 +91,7 @@ export default function Page() {
                   </div>
                   <div>
                     <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.35rem' }}>FOLLOW-UP DATE</label>
-                    <input type="date" className="form-control" value={form.followUp} onChange={e => setForm(p => ({...p, followUp: e.target.value}))} />
+                      <input type="date" className="form-control" min={getTodayDate()} value={form.followUp} onChange={e => setForm(p => ({...p, followUp: e.target.value}))} />
                   </div>
                   <div style={{ gridColumn: '1/-1' }}>
                     <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.35rem' }}>SESSION NOTES *</label>

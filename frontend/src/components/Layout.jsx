@@ -22,7 +22,7 @@ export default function Layout({ routes }) {
 
   // If user is logged in, show Sidebar + Content area
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-color, #f8fafc)' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--app-bg)' }}>
       <Sidebar routes={routes} isOpen={sidebarOpen} setOpen={setSidebarOpen} />
       
       <div style={{ 
@@ -41,7 +41,7 @@ export default function Layout({ routes }) {
         
         <NavBar routes={routes} onMenuClick={() => setSidebarOpen(true)} />
         
-        <main style={{ flex: 1, padding: '1.25rem', overflowY: 'auto' }}>
+        <main style={{ flex: 1, padding: '1.25rem', overflowY: 'auto', color: 'var(--app-text)' }}>
           <Outlet />
         </main>
       </div>

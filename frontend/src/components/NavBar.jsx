@@ -126,7 +126,10 @@ export default function NavBar({ routes, onMenuClick }) {
                   {languages.map(lang => (
                     <button
                       key={lang.code}
-                      onClick={() => { setLanguage(lang.code); setLangOpen(false) }}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        setLangOpen(false);
+                      }}
                       style={{
                         display: 'flex', alignItems: 'center', gap: '0.6rem',
                         width: '100%', padding: '0.65rem 1rem', border: 'none',

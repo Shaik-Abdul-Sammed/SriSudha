@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { LazyMotionDiv, LazyMotionButton, LazyAnimatePresence } from '../../components/LazyMotion'
 import { useAuth } from '../../hooks/useAuth'
 import { studentDummyIds } from '../../utils/studentCatalog'
+import { useI18n } from '../../i18n'
 
 const instituteName = 'Sri Sudha'
 
@@ -30,6 +31,7 @@ const sideFeatures = [
 export default function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
+  const { t } = useI18n()
 
   const [role, setRole]                 = useState('student')
   const [username, setUsername]         = useState(roleDefaults.student.username)
@@ -93,7 +95,7 @@ export default function LoginPage() {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: '1.5rem',
     }}>
-      <motion.div
+      <LazyMotionDiv
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -148,7 +150,7 @@ export default function LoginPage() {
           position: 'relative'
         }}>
           <div style={{ marginBottom: '1.5rem' }}>
-            <h1 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.2rem' }}>Sign In</h1>
+            <h1 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.2rem' }}>{t('sign_in')}</h1>
             <p style={{ color: '#64748b', fontSize: '0.875rem', margin: 0 }}>Select your role to continue</p>
           </div>
 
@@ -157,7 +159,7 @@ export default function LoginPage() {
             {Object.entries(roleInfo).map(([roleKey, roleData]) => {
               const isSelected = role === roleKey
               return (
-                <motion.button
+                <LazyMotionButton
                   key={roleKey} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                   onClick={() => handleRoleChange(roleKey)}
                   style={{
@@ -172,7 +174,7 @@ export default function LoginPage() {
                   <span style={{ fontSize: '0.65rem', fontWeight: 700, color: isSelected ? roleData.color : '#94a3b8', textTransform: 'uppercase' }}>
                     {roleData.title}
                   </span>
-                </motion.button>
+                </LazyMotionButton>
               )
             })}
           </div>
@@ -182,11 +184,11 @@ export default function LoginPage() {
             {/* Username */}
             <div>
               <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-                Username / ID
+                {t('username_label')}
               </label>
               <input
                 className="form-control"
-                placeholder={`Enter ${role} username`}
+                placeholder={t('username_label') + ` (${role})`}
                 value={username} onChange={e => setUsername(e.target.value)}
                 required style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', fontSize: '0.9rem' }}
                 onFocus={e => { e.currentTarget.style.borderColor = info.color; e.currentTarget.style.boxShadow = `0 0 0 3px ${info.color}20` }}
@@ -195,16 +197,16 @@ export default function LoginPage() {
             </div>
 
             {/* Conditional Password or OTP */}
-            <AnimatePresence mode="wait">
+            <LazyAnimatePresence mode="wait">
               {!otpMode ? (
-                <motion.div key="password" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+                <LazyMotionDiv key="password" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', margin: 0 }}>Password</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', margin: 0 }}>{t('password_label')}</label>
                     <button type="button" onClick={() => setShowPassword(v => !v)} style={{ fontSize: '0.75rem', color: info.color, background: 'none', border: 'none', fontWeight: 600, padding: 0 }}>
                       {showPassword ? 'Hide' : 'Show'}
                     </button>
                   </div>
-                  <input
+                    <input
                     type={showPassword ? 'text' : 'password'}
                     className="form-control" placeholder="••••••••"
                     value={password} onChange={e => setPassword(e.target.value)}
@@ -212,9 +214,9 @@ export default function LoginPage() {
                     onFocus={e => { e.currentTarget.style.borderColor = info.color; e.currentTarget.style.boxShadow = `0 0 0 3px ${info.color}20` }}
                     onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.boxShadow = 'none' }}
                   />
-                </motion.div>
+                </LazyMotionDiv>
               ) : (
-                <motion.div key="otp" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+                <LazyMotionDiv key="otp" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
                     Enter 6-digit OTP
                   </label>
@@ -228,12 +230,12 @@ export default function LoginPage() {
                   />
                   <div style={{ textAlign: 'right', marginTop: '0.5rem' }}>
                     <button type="button" onClick={() => setOtpMode(false)} style={{ fontSize: '0.75rem', color: '#64748b', background: 'none', border: 'none', textDecoration: 'underline', padding: 0 }}>
-                      Use Password instead
+                      {t('use_password_instead')}
                     </button>
                   </div>
-                </motion.div>
+                </LazyMotionDiv>
               )}
-            </AnimatePresence>
+              </LazyAnimatePresence>
 
             {/* Error */}
             {error && (
@@ -244,7 +246,7 @@ export default function LoginPage() {
 
             {/* Submit Buttons */}
             <div style={{ display: 'grid', gap: '0.75rem', marginTop: '0.5rem' }}>
-              <button
+                <button
                 type="submit" disabled={loading}
                 style={{
                   padding: '0.875rem', background: `linear-gradient(135deg, ${info.gradStart}, ${info.gradEnd})`,
@@ -253,7 +255,7 @@ export default function LoginPage() {
                   boxShadow: `0 4px 14px ${info.gradStart}50`, transition: 'all 0.2s ease',
                 }}
               >
-                {loading ? 'Authenticating...' : otpMode ? 'Verify & Login' : 'Login Securely'}
+                {loading ? 'Authenticating...' : otpMode ? 'Verify & Login' : t('login_securely')}
               </button>
               
               {!otpMode && isMobileRole && (
@@ -267,7 +269,7 @@ export default function LoginPage() {
                   onMouseEnter={e => e.currentTarget.style.background = `${info.color}10`}
                   onMouseLeave={e => e.currentTarget.style.background = 'white'}
                 >
-                  📱 Request Mobile OTP
+                  📱 {t('request_mobile_otp')}
                 </button>
               )}
             </div>
@@ -276,27 +278,27 @@ export default function LoginPage() {
           {/* QR Code Divider */}
           <div style={{ display: 'flex', alignItems: 'center', margin: '1.75rem 0', color: '#cbd5e1' }}>
             <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
-            <span style={{ padding: '0 1rem', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase' }}>Or Login With</span>
+            <span style={{ padding: '0 1rem', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase' }}>{t('or_login_with')}</span>
             <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
           </div>
 
           {/* QR Code Section */}
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ 
+              <div style={{ 
               width: 120, height: 120, background: '#f8fafc', border: '1px dashed #cbd5e1', 
               borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexDirection: 'column', color: '#94a3b8', marginBottom: '0.75rem'
             }}>
               <span style={{ fontSize: '2.5rem' }}>📱</span>
-              <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Scan QR Code</span>
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t('scan_qr')}</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>Use the Sri Sudha mobile app to scan</p>
           </div>
         </div>
-      </motion.div>
+      </LazyMotionDiv>
 
       {/* OTP Demo Modal */}
-      <AnimatePresence>
+      <LazyAnimatePresence>
         {showOtpModal && (
           <div style={{
             position: 'fixed', inset: 0, zIndex: 9999,
@@ -304,7 +306,7 @@ export default function LoginPage() {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             padding: '1rem'
           }}>
-            <motion.div
+            <LazyMotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -335,10 +337,10 @@ export default function LoginPage() {
               >
                 Dismiss & Enter Code
               </button>
-            </motion.div>
+            </LazyMotionDiv>
           </div>
         )}
-      </AnimatePresence>
+      </LazyAnimatePresence>
 
       <style>{`
         @media (max-width: 991px) {

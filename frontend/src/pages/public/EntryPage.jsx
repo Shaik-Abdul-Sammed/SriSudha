@@ -9,6 +9,7 @@ const roleCards = [
   { role: 'faculty', title: 'Faculty Portal', desc: 'Attendance, marks entry, class analytics, and resources.', icon: '👨‍🏫', color: '#10B981', lightColor: 'rgba(16,185,129,0.08)', gradClass: 'portal-card-faculty' },
   { role: 'parent',  title: 'Parent Portal',  desc: 'Child performance, parent communication, alerts, and dues.', icon: '👨‍👩‍👧', color: '#F59E0B', lightColor: 'rgba(245,158,11,0.08)', gradClass: 'portal-card-parent' },
   { role: 'admin',   title: 'Admin Console',  desc: 'Institution-wide operations, reports, and controls.', icon: '⚙️', color: '#7C3AED', lightColor: 'rgba(124,58,237,0.08)', gradClass: 'portal-card-admin' },
+  { role: 'visitor', title: 'Visitor Info', desc: 'Institution info, programs, campus tour, and admissions.', icon: '👁️', color: '#8B5CF6', lightColor: 'rgba(139,92,246,0.08)', gradClass: 'portal-card-visitor' },
 ]
 
 const features = [
@@ -65,9 +66,9 @@ export default function EntryPage() {
               display: 'inline-block',
               padding: '0.35rem 1rem',
               borderRadius: '2rem',
-              background: 'rgba(37,99,235,0.1)',
-              border: '1px solid rgba(37,99,235,0.25)',
-              color: '#2563EB',
+              background: 'var(--sidebar-link-hover)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--iitb-blue)',
               fontSize: '0.8rem', fontWeight: 700,
               textTransform: 'uppercase', letterSpacing: '0.06em',
               marginBottom: '1.25rem',
@@ -154,8 +155,8 @@ export default function EntryPage() {
               <div className="feature-card">
                 <div style={{
                   width: 52, height: 52, borderRadius: '14px',
-                  background: `${feature.color}15`,
-                  border: `1px solid ${feature.color}30`,
+                  background: 'var(--surface-bg)',
+                  border: '1px solid var(--border-color)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: '1.5rem', margin: '0 auto 1rem',
                 }}>
@@ -183,8 +184,8 @@ export default function EntryPage() {
         </div>
         <div className="row g-4">
           {roleCards.map(item => (
-            <div key={item.role} className="col-12 col-md-6">
-              <Link to="/login" style={{ textDecoration: 'none' }}>
+              <div key={item.role} className="col-12 col-md-6">
+                <Link to={item.role === 'visitor' ? '/visitor-dashboard' : '/login'} style={{ textDecoration: 'none' }}>
                 <div className={`card border-0 shadow-sm portal-card ${item.gradClass}`}>
                   <div className="card-body p-4">
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>

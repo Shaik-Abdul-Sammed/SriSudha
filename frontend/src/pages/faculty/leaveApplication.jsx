@@ -3,6 +3,15 @@ import RolePageTemplate from '../../components/RolePageTemplate'
 
 const ROSE = '#EF4444'
 
+// Get today's date in YYYY-MM-DD format
+const getTodayDate = () => {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 const leaveTypes = ['Casual Leave', 'Medical Leave', 'Earned Leave', 'On-Duty Leave', 'Special Leave']
 
 const leaveBalance = [
@@ -89,11 +98,11 @@ export default function Page() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                     <div>
                       <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.4rem' }}>FROM DATE *</label>
-                      <input required type="date" className="form-control" value={form.from} onChange={e => setForm(p => ({...p, from: e.target.value}))} />
+                        <input required type="date" className="form-control" min={getTodayDate()} value={form.from} onChange={e => setForm(p => ({...p, from: e.target.value}))} />
                     </div>
                     <div>
                       <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.4rem' }}>TO DATE *</label>
-                      <input required type="date" className="form-control" value={form.to} onChange={e => setForm(p => ({...p, to: e.target.value}))} />
+                        <input required type="date" className="form-control" min={getTodayDate()} value={form.to} onChange={e => setForm(p => ({...p, to: e.target.value}))} />
                     </div>
                   </div>
                   <div>

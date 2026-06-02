@@ -88,6 +88,7 @@ describe('useDarkMode Hook', () => {
     });
     
     expect(document.documentElement.getAttribute('data-bs-theme')).toBe('dark');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
   });
 
   it('should remove dark attribute from document', () => {
@@ -99,5 +100,16 @@ describe('useDarkMode Hook', () => {
     });
     
     expect(document.documentElement.getAttribute('data-bs-theme')).toBe('light');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+
+  it('should persist the exact boolean string value', () => {
+    const { result } = renderHook(() => useDarkMode());
+
+    act(() => {
+      result.current.toggleDarkMode();
+    });
+
+    expect(localStorage.getItem('sri-sudha-dark-mode')).toBe('true');
   });
 });

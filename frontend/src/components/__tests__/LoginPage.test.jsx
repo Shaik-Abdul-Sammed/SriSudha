@@ -19,7 +19,12 @@ jest.mock('react-router-dom', () => {
 })
 
 describe('LoginPage', () => {
-  it('prefills demo credentials and submits login', async () => {
+  it.each([
+    ['student', 'ss26', 'student123'],
+    ['faculty', 'faculty', 'faculty123'],
+    ['parent', 'parent', 'parent123'],
+    ['admin', 'admin', 'admin123'],
+  ])('loads the %s demo credentials', async (roleName, expectedUsername, expectedPassword) => {
     const user = userEvent.setup()
 
     render(
@@ -28,11 +33,31 @@ describe('LoginPage', () => {
       </MemoryRouter>,
     )
 
+    if (roleName !== 'student') {
+      await user.click(screen.getByRole('button', { name: new RegExp(roleName, 'i') }))
+    }
+
     expect(screen.getByText(/Username \/ ID/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/••••••••/i)).toHaveValue('student123')
+    expect(screen.getByPlaceholderText(/••••••••/i)).toHaveValue(expectedPassword)
+    expect(screen.getByDisplayValue(expectedUsername)).toBeInTheDocument()
+  })
+
+  it('submits login after switching role', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <MemoryRouter>
+        <LoginPage />
+      </MemoryRouter>,
+    )
+
+    await user.click(screen.getByRole('button', { name: /faculty/i }))
+
+    expect(screen.getByPlaceholderText(/••••••••/i)).toHaveValue('faculty123')
+    expect(screen.getByDisplayValue('faculty')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: /Login Securely/i }))
 
-    expect(mockLogin).toHaveBeenCalledWith({ role: 'student', username: 'ss26', password: 'student123' })
+    expect(mockLogin).toHaveBeenCalledWith({ role: 'faculty', username: 'faculty', password: 'faculty123' })
   })
 })

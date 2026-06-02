@@ -3,6 +3,15 @@ import RolePageTemplate from '../../components/RolePageTemplate'
 
 const AMBER = '#F59E0B'
 
+// Get today's date in YYYY-MM-DD format
+const getTodayDate = () => {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 const existingAssignments = [
   { id: 1, title: 'Wave Optics Problem Set', subject: 'Physics',     section: 'MPC-A', due: '2026-05-15', submissions: 28, total: 32, status: 'active' },
   { id: 2, title: 'Organic Chemistry Lab Report', subject: 'Chemistry', section: 'MPC-B', due: '2026-05-12', submissions: 30, total: 30, status: 'closed' },
@@ -82,7 +91,7 @@ export default function Page() {
                   </div>
                   <div>
                     <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.4rem' }}>DUE DATE *</label>
-                    <input required type="date" className="form-control" value={form.due} onChange={e => setForm(p => ({...p, due: e.target.value}))} />
+                      <input required type="date" className="form-control" min={getTodayDate()} value={form.due} onChange={e => setForm(p => ({...p, due: e.target.value}))} />
                   </div>
                   <div>
                     <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.4rem' }}>MAX MARKS</label>

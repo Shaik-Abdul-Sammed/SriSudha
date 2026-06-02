@@ -1,9 +1,9 @@
 export const studentDummyIds = [
-  { id: 'ss26@school.com', name: 'Sai Sree', stream: 'MPC', section: 'MPC-A' },
-  { id: 'ss27@school.com', name: 'Sahana Reddy', stream: 'BIPC', section: 'BIPC-B' },
-  { id: 'ss28@school.com', name: 'Sriram Kumar', stream: 'MBIPC', section: 'MBIPC-A' },
-  { id: 'ss29@school.com', name: 'Anika Rao', stream: 'MPC', section: 'MPC-B' },
-  { id: 'ss30@school.com', name: 'Harsha Vardhan', stream: 'BIPC', section: 'BIPC-A' },
+  { id: 'ss26', name: 'Sai Sree', stream: 'MPC', section: 'MPC-A' },
+  { id: 'ss27', name: 'Sahana Reddy', stream: 'BIPC', section: 'BIPC-B' },
+  { id: 'ss28', name: 'Sriram Kumar', stream: 'MBIPC', section: 'MBIPC-A' },
+  { id: 'ss29', name: 'Anika Rao', stream: 'MPC', section: 'MPC-B' },
+  { id: 'ss30', name: 'Harsha Vardhan', stream: 'BIPC', section: 'BIPC-A' },
 ]
 
 export const courseTracks = [

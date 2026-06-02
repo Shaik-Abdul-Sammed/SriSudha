@@ -67,7 +67,7 @@ export default function Sidebar({ routes, isOpen, setOpen }) {
         className={`sidebar ${isOpen ? 'open' : ''}`}
         style={{
           width: 260,
-          background: 'var(--bg-color, #ffffff)',
+          background: 'var(--sidebar-bg)',
           borderRight: '1px solid var(--border-color, #e2e8f0)',
           height: '100vh',
           position: 'fixed',
@@ -103,7 +103,7 @@ export default function Sidebar({ routes, isOpen, setOpen }) {
           <button 
             className="d-lg-none btn btn-sm" 
             onClick={() => setOpen(false)}
-            style={{ padding: 0, fontSize: '1.2rem', color: '#94a3b8' }}
+            style={{ padding: 0, fontSize: '1.2rem', color: 'var(--sidebar-muted)' }}
           >✕</button>
         </div>
 
@@ -141,8 +141,8 @@ export default function Sidebar({ routes, isOpen, setOpen }) {
               padding: '0.6rem 0.875rem', borderRadius: '0.5rem',
               marginBottom: '1rem', textDecoration: 'none',
               fontSize: '0.875rem', fontWeight: isActive ? 700 : 600,
-              color: isActive ? themeData.text : 'var(--app-text)',
-              background: isActive ? themeData.light : 'transparent',
+                  color: isActive ? themeData.text : 'var(--sidebar-text)',
+                  background: isActive ? themeData.light : 'transparent',
               transition: 'all 0.2s',
             })}
           >
@@ -171,7 +171,7 @@ export default function Sidebar({ routes, isOpen, setOpen }) {
                       padding: '0.55rem 0.875rem', borderRadius: '0.5rem',
                       marginBottom: '0.2rem', textDecoration: 'none',
                       fontSize: '0.82rem', fontWeight: isActive ? 700 : 500,
-                      color: isActive ? themeData.text : 'var(--app-text)',
+                      color: isActive ? themeData.text : 'var(--sidebar-text)',
                       background: isActive ? themeData.light : 'transparent',
                       transition: 'all 0.2s',
                     })}
@@ -192,7 +192,7 @@ export default function Sidebar({ routes, isOpen, setOpen }) {
             style={{
               display: 'flex', alignItems: 'center', gap: '0.6rem',
               padding: '0.5rem 0.875rem', borderRadius: '0.5rem',
-              textDecoration: 'none', color: 'var(--app-text)',
+              textDecoration: 'none', color: 'var(--sidebar-text)',
               fontSize: '0.85rem', fontWeight: 600,
             }}
           >

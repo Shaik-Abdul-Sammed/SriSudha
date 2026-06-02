@@ -23,10 +23,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-RUN npm install -g http-server
+RUN npm install -g serve
 
 COPY --from=0 /app/frontend/dist ./dist
 
 EXPOSE 3000
 
-CMD ["http-server", "dist", "-p", "3000", "--cors"]
+CMD ["serve", "-s", "dist", "-l", "3000", "--cors"]

@@ -1,4 +1,5 @@
 import { useAuth } from '../hooks/useAuth'
+import { useI18n } from '../i18n'
 import { instituteStats } from '../utils/mockData'
 import StudentAcademyPanel from './StudentAcademyPanel'
 
@@ -47,6 +48,7 @@ const roleConfig = {
 
 export default function DashboardHome({ role, routes }) {
   const { user } = useAuth()
+  const { t } = useI18n()
   const config = roleConfig[role] || roleConfig.student
 
   return (
@@ -62,7 +64,7 @@ export default function DashboardHome({ role, routes }) {
               {config.icon} {role.charAt(0).toUpperCase() + role.slice(1)} Portal
             </p>
             <h1 style={{ color: 'white', fontSize: 'clamp(1.25rem, 3vw, 1.75rem)', fontWeight: 800, marginBottom: '0.35rem' }}>
-              Welcome back, {user?.name || 'User'}!
+              {t('welcome_back')}, {user?.name || 'User'}!
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.9rem', margin: 0 }}>
               {config.greeting}
@@ -94,7 +96,7 @@ export default function DashboardHome({ role, routes }) {
           <div key={stat.label} className="col-6 col-md-3">
             <div className="card border-0 shadow-sm h-100" style={{ borderRadius: '1rem', padding: '1.25rem', textAlign: 'center' }}>
               <div style={{ fontSize: '1.75rem', fontWeight: 800, color: config.accentColor, lineHeight: 1.1 }}>{stat.value}</div>
-              <div style={{ fontSize: '0.72rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', marginTop: '0.3rem', letterSpacing: '0.04em' }}>{stat.label}</div>
+              <div style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--app-text-muted)', textTransform: 'uppercase', marginTop: '0.3rem', letterSpacing: '0.04em' }}>{stat.label}</div>
             </div>
           </div>
         ))}
@@ -109,9 +111,9 @@ export default function DashboardHome({ role, routes }) {
               <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1.25rem' }}>Performance Overview</h2>
               <div style={{ 
                 height: 240, borderRadius: '1rem', 
-                background: '#f8fafc', border: '1px dashed #cbd5e1',
+                background: 'var(--surface-bg)', border: '1px dashed var(--border-color)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexDirection: 'column', color: '#94a3b8'
+                flexDirection: 'column', color: 'var(--app-text-muted)'
               }}>
                 <span style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📈</span>
                 <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>Interactive Analytics Chart</span>
@@ -131,8 +133,8 @@ export default function DashboardHome({ role, routes }) {
                     {widget.data.map((item, j) => (
                       <div key={j} style={{ 
                         padding: '0.6rem 0.875rem', borderRadius: '0.625rem', 
-                        background: '#f1f5f9', borderLeft: `3px solid ${config.accentColor}`,
-                        fontSize: '0.82rem', fontWeight: 500, color: '#334155'
+                        background: 'var(--surface-bg)', borderLeft: `3px solid ${config.accentColor}`,
+                        fontSize: '0.82rem', fontWeight: 500, color: 'var(--app-text)'
                       }}>
                         {item}
                       </div>

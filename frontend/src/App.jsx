@@ -6,8 +6,10 @@ import ProtectedRoute from './components/ProtectedRoute'
 import { useAuth } from './hooks/useAuth'
 import EntryPage from './pages/public/EntryPage'
 import LoginPage from './pages/public/LoginPage'
+import AboutPage from './pages/public/AboutPage'
 import './App.css'
 import Layout from './components/Layout'
+import VisitorDashboard from './components/VisitorDashboard'
 import ProfilePage from './pages/common/ProfilePage'
 import { ToastProvider } from './components/ToastProvider'
 
@@ -186,6 +188,7 @@ function App() {
           <Route element={<Layout routes={generatedRoutes} />}>
             <Route path="/" element={<RedirectHome />} />
             <Route path="/entry" element={<EntryPage />} />
+              <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
 
@@ -216,6 +219,8 @@ function App() {
             element={<DashboardHome role="admin" routes={groupedRoutes.admin || []} />}
           />
         </Route>
+
+          <Route path="/visitor-dashboard" element={<VisitorDashboard />} />
 
         <Route path="/directory" element={<HomeDirectory />} />
 
