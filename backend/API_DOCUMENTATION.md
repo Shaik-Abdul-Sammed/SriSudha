@@ -1,11 +1,11 @@
-# API Documentation - Sri Sudha ERP Backend
+# API Documentation - Sri Venkateswara ERP Backend
 
 ## Overview
-RESTful API for the Sri Sudha Educational Resource Planning system with role-based access and persistent search functionality.
+RESTful API for the Sri Venkateswara Educational Resource Planning system with role-based access and persistent search functionality.
 
 ## Base URL
 - Development: `http://localhost:4000/api`
-- Production: `https://api.srisudha.edu/api`
+-- Production: `https://api.srivenkateswara.edu/api`
 
 ## API Versioning
 - Current Version: `v1`
@@ -25,7 +25,7 @@ Check API availability and version.
 ```json
 {
   "ok": true,
-  "service": "sri-sudha-backend",
+  "service": "sri-venkateswara-backend",
   "version": "1.0.0",
   "timestamp": "2026-05-07T10:30:00Z"
 }
@@ -150,4 +150,4 @@ const saveResponse = await fetch('/api/v1/search/recent', {
 ```
 
 ## Support
-For API issues or questions, contact: api-support@srisudha.edu
+For API issues or questions, contact: api-support@srivenkateswara.edu

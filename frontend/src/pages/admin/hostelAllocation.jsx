@@ -4,7 +4,6 @@ import RolePageTemplate from '../../components/RolePageTemplate'
 const PURPLE = '#7C3AED'
 const AMBER = '#F59E0B'
 const GREEN = '#10B981'
-const RED = '#EF4444'
 const BLUE = '#2563EB'
 
 const initialAllocations = [

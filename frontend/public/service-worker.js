@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sri-sudha-v1'
+const CACHE_NAME = 'sri-venkateswara-v1'
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -131,7 +131,7 @@ async function syncOfflineSearches() {
 // IndexedDB helpers
 function openIndexedDB() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('SriSudhaDB', 1)
+    const request = indexedDB.open('SriVenkateswaraDB', 1)
 
     request.onerror = () => reject(request.error)
     request.onsuccess = () => resolve(request.result)

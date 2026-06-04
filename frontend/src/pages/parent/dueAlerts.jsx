@@ -3,9 +3,7 @@ import RolePageTemplate from '../../components/RolePageTemplate'
 import { feeData } from '../../utils/studentMockData'
 
 const AMBER = '#F59E0B'
-const GREEN = '#10B981'
 const RED = '#EF4444'
-const BLUE = '#2563EB'
 
 export default function Page() {
   const [paid, setPaid] = useState(false)

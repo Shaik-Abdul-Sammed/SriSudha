@@ -1,4 +1,4 @@
-describe('Sri Sudha - Critical User Flows', () => {
+describe('Sri Venkateswara - Critical User Flows', () => {
   const baseUrl = 'http://localhost:3000'
 
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('Sri Sudha - Critical User Flows', () => {
 
     it('should login successfully with valid credentials', () => {
       cy.visit(`${baseUrl}/login`)
-      cy.get('input[type="email"]').type('student@srisudha.edu')
+      cy.get('input[type="email"]').type('student@srivenkateswara.edu')
       cy.get('input[type="password"]').type('password123')
       cy.contains('button', /login|submit/i).click()
 
@@ -49,7 +49,7 @@ describe('Sri Sudha - Critical User Flows', () => {
     it('should logout successfully', () => {
       // Login first
       cy.visit(`${baseUrl}/login`)
-      cy.get('input[type="email"]').type('student@srisudha.edu')
+      cy.get('input[type="email"]').type('student@srivenkateswara.edu')
       cy.get('input[type="password"]').type('password123')
       cy.contains('button', /login|submit/i).click()
 
@@ -63,7 +63,7 @@ describe('Sri Sudha - Critical User Flows', () => {
     beforeEach(() => {
       // Login before testing search
       cy.visit(`${baseUrl}/login`)
-      cy.get('input[type="email"]').type('student@srisudha.edu')
+      cy.get('input[type="email"]').type('student@srivenkateswara.edu')
       cy.get('input[type="password"]').type('password123')
       cy.contains('button', /login|submit/i).click()
     })

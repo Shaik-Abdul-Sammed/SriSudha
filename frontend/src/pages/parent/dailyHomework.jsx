@@ -5,7 +5,6 @@ import { sharedAssignments, studentSubmissions } from '../../utils/studentMockDa
 const AMBER = '#F59E0B'
 const GREEN = '#10B981'
 const RED = '#EF4444'
-const BLUE = '#2563EB'
 
 export default function Page() {
   const [filter, setFilter] = useState('all')

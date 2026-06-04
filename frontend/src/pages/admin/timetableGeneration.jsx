@@ -2,7 +2,6 @@ import { useState } from 'react'
 import RolePageTemplate from '../../components/RolePageTemplate'
 
 const PURPLE = '#7C3AED'
-const AMBER = '#F59E0B'
 const GREEN = '#10B981'
 const BLUE = '#2563EB'
 const RED = '#EF4444'
@@ -51,7 +50,7 @@ export default function Page() {
         <div className="card border-0 shadow-sm" style={{ borderRadius: '1.25rem' }}>
           <div className="card-body p-4 p-md-5 d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center bg-dark text-white">
             <div>
-              <p className="text-uppercase small fw-semibold text-warning mb-2">SriSudha Heuristics Engine v2.0</p>
+              <p className="text-uppercase small fw-semibold text-warning mb-2">Sri Venkateswara Heuristics Engine v2.0</p>
               <h2 className="h4 mb-2 text-white" style={{ fontWeight: 800 }}>Automated Schedule Optimizer</h2>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.82rem', margin: 0 }}>Runs multi-constraint scheduling checks to automatically bypass overlapping faculty hours.</p>
             </div>

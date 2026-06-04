@@ -1,8 +1,6 @@
 import RolePageTemplate from '../../components/RolePageTemplate'
 import { scholarshipData } from '../../utils/studentMockData'
 
-const stageColor = { done: '#10B981', pending: '#e2e8f0' }
-
 export default function Page() {
   const { name, amount, disbursedAmount, status, stages, eligibility, documents } = scholarshipData
   const currentStageIdx = stages.filter(s => s.done).length - 1

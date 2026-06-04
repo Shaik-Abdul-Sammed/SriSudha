@@ -8,7 +8,7 @@ export const STUDENT = {
   roll: '2024MPC001',
   section: 'MPC-A',
   year: 2,
-  mentor: { name: 'Dr. Kavitha Sharma', subject: 'Mathematics', phone: '9876543210', email: 'kavitha@srisudha.ac.in', available: 'Mon, Wed, Fri — 2 PM to 4 PM' },
+  mentor: { name: 'Dr. Kavitha Sharma', subject: 'Mathematics', phone: '9876543210', email: 'kavitha@srivenkateswara.ac.in', available: 'Mon, Wed, Fri — 2 PM to 4 PM' },
   hostel: { block: 'Block B', room: '204', roommates: ['Rahul Varma', 'Sai Charan'] },
   bus: { route: 'Route 7', stop: 'Ramanthapur', busNo: 'AP-09-AB-1234', driver: 'K. Nagaraju', phone: '9000012345' },
   section_students: ['Arjun Reddy','Priya Singh','Amit Kumar','Sneha Patel','Rahul Varma','Kavya Naidu','Sai Charan','Deepika Rao','Vijay Krishna','Meera Iyer','Suresh Babu','Ananya Joshi','Ravi Teja','Pooja Sharma','Kiran Reddy','Lakshmi Devi','Satish Kumar','Nandini Rao','Anil Verma','Chitra Devi','Harish Reddy','Swathi Nair','Balaji Rao','Divya Menon','Ravi Shankar','Usha Rani','Pavan Kumar','Rekha Kumari','Gopal Reddy','Sunita Sharma','Rajesh Babu','Manjula Devi'],

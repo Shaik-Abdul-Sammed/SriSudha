@@ -3,8 +3,6 @@ import RolePageTemplate from '../../components/RolePageTemplate'
 
 const PURPLE = '#7C3AED'
 const GREEN = '#10B981'
-const AMBER = '#F59E0B'
-const BLUE = '#2563EB'
 
 const stageColor = {
   inquiry: '#64748b',

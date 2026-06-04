@@ -15,7 +15,7 @@ export function createSearchRouter(db = pool) {
          WHERE role = $1
          ORDER BY created_at DESC
          LIMIT 6`,
-        [role],
+        [role]
       )
 
       const items = rows.map((row) => ({

@@ -10,9 +10,9 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 // Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY || 'demo-api-key',
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || 'srisudha-demo.firebaseapp.com',
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || 'srisudha-demo',
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || 'srisudha-demo.appspot.com',
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || 'srivenkateswara-demo.firebaseapp.com',
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || 'srivenkateswara-demo',
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || 'srivenkateswara-demo.appspot.com',
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || 'demo-sender-id',
   appId: process.env.REACT_APP_FIREBASE_APP_ID || 'demo-app-id',
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || 'demo-measurement-id'

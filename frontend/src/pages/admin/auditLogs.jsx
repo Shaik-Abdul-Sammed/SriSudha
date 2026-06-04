@@ -15,7 +15,7 @@ const initialLogs = [
 ]
 
 export default function Page() {
-  const [logs, setLogs] = useState(initialLogs)
+  const [logs] = useState(initialLogs)
   const [filter, setFilter] = useState('All')
 
   const filtered = filter === 'All' ? logs : logs.filter(l => l.category === filter)

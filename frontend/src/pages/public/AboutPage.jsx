@@ -1,14 +1,12 @@
-import { useI18n } from '../../i18n'
 import { useState } from 'react'
 import { LazyMotionDiv } from '../../components/LazyMotion'
 
 export default function AboutPage() {
-  const { t } = useI18n()
   const [activeTab, setActiveTab] = useState('overview')
 
   const institutionInfo = {
     overview: {
-      title: 'About Sri Sudha Institution',
+      title: 'About Sri Venkateswara Institution',
       icon: '🏫',
       content: [
         'Sri Sudha is a premier educational institution dedicated to fostering academic excellence and holistic development of students.',
@@ -64,9 +62,9 @@ export default function AboutPage() {
       title: 'Get In Touch',
       icon: '📞',
       content: [
-        'Address: Sri Sudha Educational Complex, Hyderabad, Telangana',
+          'Address: Sri Venkateswara Educational Complex, Hyderabad, Telangana',
         'Phone: +91-40-XXXX-XXXX',
-        'Email: info@srisudha.edu.in',
+        'Email: info@srivenkateswara.edu.in',
         'Hours: Monday - Saturday: 8:00 AM - 6:00 PM',
         'Visit our campus for a guided tour and counseling session'
       ]
@@ -82,7 +80,7 @@ export default function AboutPage() {
         <div className="container-fluid px-3 px-lg-4" style={{ display: 'flex', alignItems: 'center', height: '64px' }}>
           <a href="/entry" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
             <span style={{ fontSize: '1.4rem' }}>🏫</span>
-            <span style={{ fontSize: '1.1rem', fontWeight: 800, background: 'linear-gradient(135deg,#2563EB,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Sri Sudha</span>
+            <span style={{ fontSize: '1.1rem', fontWeight: 800, background: 'linear-gradient(135deg,#2563EB,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Sri Venkateswara</span>
           </a>
         </div>
       </nav>
@@ -91,7 +89,7 @@ export default function AboutPage() {
         {/* Hero Section */}
         <LazyMotionDiv style={{ textAlign: 'center', marginBottom: '3rem', color: 'white' }}>
           <h1 style={{ fontSize: 'clamp(1.75rem, 5vw, 3rem)', fontWeight: 900, marginBottom: '1rem', lineHeight: 1.2 }}>
-            About Sri Sudha Institution
+            About Sri Venkateswara Institution
           </h1>
           <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto' }}>
             Nurturing minds, shaping futures, transforming lives
@@ -170,7 +168,7 @@ export default function AboutPage() {
               <a href="/entry" className="btn" style={{ background: 'linear-gradient(135deg,#2563EB,#06B6D4)', color: 'white', border: 'none', fontWeight: 700, borderRadius: '0.875rem', padding: '0.7rem 1.5rem', textDecoration: 'none' }}>
                 📖 Explore Roles
               </a>
-              <a href="mailto:info@srisudha.edu.in" className="btn" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 700, borderRadius: '0.875rem', padding: '0.7rem 1.5rem', textDecoration: 'none' }}>
+              <a href="mailto:info@srivenkateswara.edu.in" className="btn" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 700, borderRadius: '0.875rem', padding: '0.7rem 1.5rem', textDecoration: 'none' }}>
                 📧 Contact Us
               </a>
             </div>

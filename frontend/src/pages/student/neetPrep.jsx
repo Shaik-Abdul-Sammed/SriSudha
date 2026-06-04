@@ -5,7 +5,6 @@ import { neetChapters } from '../../utils/studentMockData'
 const BLUE = '#2563EB'
 const GREEN = '#10B981'
 const AMBER = '#F59E0B'
-const RED = '#EF4444'
 
 const mockTests = [
   { id: 1, name: 'NEET Full Syllabus Mock 1', date: '2026-05-22', biology: 330, chemistry: 145, physics: 135, total: 610, max: 720, percentile: 98.9 },
@@ -192,7 +191,7 @@ export default function Page() {
             </div>
 
             <div style={{ display: 'grid', gap: '0.75rem' }}>
-              {currentChapters.map((ch, idx) => {
+              {currentChapters.map((ch) => {
                 const count = practicedCounts[ch.chapter] || 0
                 return (
                   <div key={ch.chapter} style={{ padding: '0.875rem 1.25rem', borderRadius: '1rem', background: 'var(--surface-bg)', border: `1px solid ${ch.done ? '#10B98125' : 'var(--border-color)'}`, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>

@@ -1,7 +1,4 @@
-import { useAuth } from '../hooks/useAuth'
-import { useI18n } from '../i18n'
-
-const instituteName = 'Sri Sudha'
+// removed unused i18n import
 
 const roleConfig = {
   visitor: {
@@ -26,7 +23,6 @@ const visitormenu = [
 ]
 
 export default function VisitorDashboard() {
-  const { t } = useI18n()
   const config = roleConfig.visitor
 
   return (
@@ -157,7 +153,7 @@ export default function VisitorDashboard() {
           <a href="/about" className="btn" style={{ background: `linear-gradient(135deg, ${config.accentColor}, #7C3AED)`, color: 'white', border: 'none', fontWeight: 700, borderRadius: '0.875rem', padding: '0.7rem 1.5rem', textDecoration: 'none' }}>
             📖 Learn More
           </a>
-          <a href="mailto:admissions@srisudha.edu.in" className="btn" style={{ background: 'rgba(139, 92, 246, 0.1)', color: config.accentColor, border: `1px solid ${config.accentColor}30`, fontWeight: 700, borderRadius: '0.875rem', padding: '0.7rem 1.5rem', textDecoration: 'none' }}>
+          <a href="mailto:admissions@srivenkateswara.edu.in" className="btn" style={{ background: 'rgba(139, 92, 246, 0.1)', color: config.accentColor, border: `1px solid ${config.accentColor}30`, fontWeight: 700, borderRadius: '0.875rem', padding: '0.7rem 1.5rem', textDecoration: 'none' }}>
             📧 Admission Inquiry
           </a>
         </div>

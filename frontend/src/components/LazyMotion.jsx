@@ -10,6 +10,14 @@ function stripMotionProps(props) {
     transition,
     ...safeProps
   } = props || {}
+  // reference motion props to avoid unused-variable lint errors
+  void whileHover
+  void whileTap
+  void initial
+  void animate
+  void exit
+  void transition
+
   return safeProps
 }
 

@@ -7,11 +7,11 @@ const GREEN = '#10B981'
 const RED = '#EF4444'
 
 const initialFaculty = [
-  { id: 'FAC001', name: 'Dr. Kavitha Sharma', subject: 'Mathematics', stream: 'MPC/MBIPC', active: true, email: 'kavitha@srisudha.ac.in', phone: '9876543210' },
-  { id: 'FAC002', name: 'Dr. Ravi Kumar', subject: 'Physics', stream: 'MPC/BIPC', active: true, email: 'ravi@srisudha.ac.in', phone: '9876543211' },
-  { id: 'FAC003', name: 'Dr. Sujata Rao', subject: 'Chemistry', stream: 'All Streams', active: true, email: 'sujata@srisudha.ac.in', phone: '9876543212' },
-  { id: 'FAC004', name: 'Dr. Padma Rao', subject: 'Biology', stream: 'BIPC/MBIPC', active: true, email: 'padma@srisudha.ac.in', phone: '9876543213' },
-  { id: 'FAC005', name: 'Mrs. Anitha Reddy', subject: 'English', stream: 'All Streams', active: false, email: 'anitha@srisudha.ac.in', phone: '9876543214' },
+  { id: 'FAC001', name: 'Dr. Kavitha Sharma', subject: 'Mathematics', stream: 'MPC/MBIPC', active: true, email: 'kavitha@srivenkateswara.ac.in', phone: '9876543210' },
+  { id: 'FAC002', name: 'Dr. Ravi Kumar', subject: 'Physics', stream: 'MPC/BIPC', active: true, email: 'ravi@srivenkateswara.ac.in', phone: '9876543211' },
+  { id: 'FAC003', name: 'Dr. Sujata Rao', subject: 'Chemistry', stream: 'All Streams', active: true, email: 'sujata@srivenkateswara.ac.in', phone: '9876543212' },
+  { id: 'FAC004', name: 'Dr. Padma Rao', subject: 'Biology', stream: 'BIPC/MBIPC', active: true, email: 'padma@srivenkateswara.ac.in', phone: '9876543213' },
+  { id: 'FAC005', name: 'Mrs. Anitha Reddy', subject: 'English', stream: 'All Streams', active: false, email: 'anitha@srivenkateswara.ac.in', phone: '9876543214' },
 ]
 
 export default function Page() {
@@ -84,9 +84,9 @@ export default function Page() {
                 <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.3rem' }}>STREAM TARGETS</label>
                 <input required className="form-control form-control-sm" placeholder="e.g. MPC/MBIPC" value={form.stream} onChange={e => setForm(p => ({ ...p, stream: e.target.value }))} />
               </div>
-              <div>
+                <div>
                 <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.3rem' }}>EMAIL ADDRESS</label>
-                <input required type="email" className="form-control form-control-sm" placeholder="e.g. harish@srisudha.ac.in" value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))} />
+                <input required type="email" className="form-control form-control-sm" placeholder="e.g. harish@srivenkateswara.ac.in" value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))} />
               </div>
               <div>
                 <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', display: 'block', marginBottom: '0.3rem' }}>MOBILE PHONE</label>

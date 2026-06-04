@@ -1,4 +1,4 @@
-# Sri Sudha Backend
+# Sri Venkateswara Backend
 
 Express backend for educational ERP data with optional PostgreSQL persistence.
 

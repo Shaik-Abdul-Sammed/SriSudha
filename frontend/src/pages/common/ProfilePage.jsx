@@ -8,9 +8,9 @@ export default function ProfilePage() {
   const { user } = useAuth()
   const [formData, setFormData] = useState({
     name: user?.name || '',
-    email: `${user?.name?.toLowerCase().replace(' ', '.')}@srisudha.edu`,
+    email: `${user?.name?.toLowerCase().replace(' ', '.')}@srivenkateswara.edu`,
     phone: '+91 98765 43210',
-    address: '123, Academic Block, Sri Sudha Campus',
+    address: '123, Academic Block, Sri Venkateswara Campus',
   })
   const [saved, setSaved] = useState(false)
 

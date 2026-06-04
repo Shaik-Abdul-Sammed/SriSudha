@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import RolePageTemplate from '../../components/RolePageTemplate'
-import { STUDENT, attendanceData } from '../../utils/studentMockData'
+import { attendanceData } from '../../utils/studentMockData'
 
 const AMBER = '#F59E0B'
 const GREEN = '#10B981'

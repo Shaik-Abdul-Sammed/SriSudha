@@ -19,7 +19,7 @@ export default function Page() {
           <div className="card-body p-4 p-md-5 d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div>
               <span className="badge text-bg-light text-primary mb-2" style={{ fontWeight: 700 }}>ACADEMIC SERVICES</span>
-              <h2 style={{ color: 'white', fontWeight: 800, fontSize: '1.5rem', margin: 0 }}>SriSudha Integrated Academy Hub</h2>
+              <h2 style={{ color: 'white', fontWeight: 800, fontSize: '1.5rem', margin: 0 }}>Sri Venkateswara Integrated Academy Hub</h2>
               <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.875rem', margin: '0.25rem 0 0' }}>Explore academic catalogs, dummy student profiles, mock tracks, and resources.</p>
             </div>
             <div style={{ textAlign: 'right' }}>

@@ -19,7 +19,8 @@ export default function Page() {
 
   const overallPaid = paidStatus ? feeData.totalFee : feeData.paidAmount
   const overallPending = paidStatus ? 0 : feeData.pendingAmount
-  const pct = Math.round((overallPaid / feeData.totalFee) * 100)
+    const pct = Math.round((overallPaid / feeData.totalFee) * 100)
+    void pct
 
   return (
     <RolePageTemplate role="Parent" title="Fee Ledger & Invoice Dashboard" description="Access breakdown structures, track payment histories, and remit outstanding fees online.">

@@ -3,8 +3,6 @@ import RolePageTemplate from '../../components/RolePageTemplate'
 import { STUDENT, busSchedule } from '../../utils/studentMockData'
 
 const AMBER = '#F59E0B'
-const GREEN = '#10B981'
-const BLUE = '#2563EB'
 
 export default function Page() {
   const [calling, setCalling] = useState(false)
@@ -59,7 +57,7 @@ export default function Page() {
           <div className="card border-0 shadow-sm" style={{ borderRadius: '1.25rem', padding: '1.25rem' }}>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem' }}>Stops & Timeline</h3>
             <div style={{ display: 'grid', gap: '0.75rem' }}>
-              {busSchedule.map((s, idx) => {
+              {busSchedule.map((s) => {
                 const isMyStop = s.stop === STUDENT.bus.stop
                 return (
                   <div key={s.stop} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem 0.75rem', borderRadius: '0.75rem', background: isMyStop ? '#F59E0B12' : '#F8FAFC', border: isMyStop ? `1px solid ${AMBER}` : '1px solid #E2E8F0' }}>
