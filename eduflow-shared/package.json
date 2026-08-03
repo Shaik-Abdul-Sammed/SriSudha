@@ -1,0 +1,7 @@
+{
+  "name": "eduflow-shared",
+  "version": "1.0.0",
+  "description": "Shared logic, constants, and utilities for the EduFlow AI OS Ecosystem.",
+  "main": "index.js",
+  "type": "module"
+}

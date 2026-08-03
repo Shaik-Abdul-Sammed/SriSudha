@@ -76,3 +76,30 @@ data/
 
 # Runtime
 .pid
+
+# Next.js
+.next/
+out/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.a
+*.apk
+*.aab
+*.app
+*.app.zip
+*.dylib
+*.exe
+*.framework
+*.ipa
+*.lib
+*.so
+
+# macOS
+.DS_Store

@@ -1,4 +1,4 @@
-# Sri Venkateswara Colleges - Complete Educational Resource Planning System
+# EduFlow Colleges - Complete Educational Resource Planning System
 
 ![Tests Passing](https://img.shields.io/badge/tests-26%2F26%20passing-brightgreen)
 ![Code Quality](https://img.shields.io/badge/lint-0%20errors-brightgreen)
@@ -9,7 +9,7 @@
 
 ## 🎯 Overview
 
-Sri Venkateswara Junior College and Sri Lakshmi Venkateswara Degree College in Dhone (Dronachalam), Andhra Pradesh, function as a cohesive educational pathway providing quality intermediate and higher education to rural and urban students in the Nandyal region. At the intermediate level, the junior college offers essential pre-university foundational courses including MPC (Mathematics, Physics, Chemistry), BiPC (Biology, Physics, Chemistry), and CEC (Commerce, Economics, Civics), transitioning smoothly into undergraduate degree streams such as Bachelor of Science (B.Sc.), Bachelor of Commerce (B.Com.), and Bachelor of Arts (B.A.). The campus features structured facilities that include standard digital and physical classrooms, specialized science laboratories for intermediate and degree experiments, a resourceful academic library, and dedicated outdoor spaces for sports and physical training. Driven by a dedicated and accessible teaching faculty, the college maps out strong professional outcomes by training students for higher university admissions, competitive public sector exams, and professional roles, alongside coordinating career guidance pipelines with training units like the local Sri Lakshmi Venkateswara Defence Academy. The institution's notable achievements center around maintaining a high local academic reputation, running active skill-development programs to elevate rural student employability, and consistently hosting community engagement initiatives, social service programs, and national milestone broadcasts to develop scientific and moral values among its student body.
+EduFlow Junior College and Sri Lakshmi Venkateswara Degree College in Dhone (Dronachalam), Andhra Pradesh, function as a cohesive educational pathway providing quality intermediate and higher education to rural and urban students in the Nandyal region. At the intermediate level, the junior college offers essential pre-university foundational courses including MPC (Mathematics, Physics, Chemistry), BiPC (Biology, Physics, Chemistry), and CEC (Commerce, Economics, Civics), transitioning smoothly into undergraduate degree streams such as Bachelor of Science (B.Sc.), Bachelor of Commerce (B.Com.), and Bachelor of Arts (B.A.). The campus features structured facilities that include standard digital and physical classrooms, specialized science laboratories for intermediate and degree experiments, a resourceful academic library, and dedicated outdoor spaces for sports and physical training. Driven by a dedicated and accessible teaching faculty, the college maps out strong professional outcomes by training students for higher university admissions, competitive public sector exams, and professional roles, alongside coordinating career guidance pipelines with training units like the local Sri Lakshmi Venkateswara Defence Academy. The institution's notable achievements center around maintaining a high local academic reputation, running active skill-development programs to elevate rural student employability, and consistently hosting community engagement initiatives, social service programs, and national milestone broadcasts to develop scientific and moral values among its student body.
 
 ## ✨ Key Features
 
@@ -256,7 +256,7 @@ const filtered = applyFilters(items, {
 
 ## 📱 PWA Support
 
-Sri Sudha is a Progressive Web App:
+EduFlow is a Progressive Web App:
 - Install as app on mobile/desktop
 - Works offline with service worker
 - Background sync for offline actions
@@ -343,7 +343,7 @@ refactor: Refactor code
 
 - Documentation: [API_DOCUMENTATION.md](./backend/API_DOCUMENTATION.md)
 - Issues: GitHub Issues
-- Email: support@srivenkateswara.edu
+- Email: support@eduflow.edu
 
 ## 📄 License
 
