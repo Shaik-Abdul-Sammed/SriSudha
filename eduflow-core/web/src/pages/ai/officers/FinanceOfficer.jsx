@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Send, Sparkles, DollarSign, PieChart, CreditCard, FileText } from 'lucide-react';
+import { ArrowLeft, Send, Sparkles, DollarSign, PieChart } from 'lucide-react';
+import { getApiBaseURL } from '../../../config/apiConfig';
 
 export default function FinanceOfficer() {
   const [messages, setMessages] = useState([]);
@@ -21,7 +22,7 @@ export default function FinanceOfficer() {
     
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch('http://localhost:3000/api/v1/officers/finance/reconcile', {
+      const response = await fetch(`${getApiBaseURL()}/v1/officers/finance/reconcile`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

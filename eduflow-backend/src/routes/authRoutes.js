@@ -7,10 +7,13 @@ import { rateLimit } from 'express-rate-limit'
 import { z } from 'zod'
 
 const loginSchema = z.object({
-  institutionId: z.coerce.number(),
-  email: z.string().email(),
+  institutionId: z.union([z.string(), z.number()]),
+  email: z.string().optional(),
+  username: z.string().optional(),
   password: z.string().min(1),
   role: z.string().optional()
+}).refine(data => data.email || data.username, {
+  message: 'Either email or username is required'
 })
 
 export function createAuthRouter() {
@@ -67,18 +70,19 @@ export function createAuthRouter() {
         return res.status(400).json({ error: 'Validation failed', details: parsedBody.error.errors })
       }
       
-      const { institutionId, email, password, role } = parsedBody.data
+      const { institutionId, email, username, password, role } = parsedBody.data
+      const identifier = username || email
 
       // Find user and join with institution
-      const user = await UserRepository.findByEmail(institutionId, email)
+      const user = await UserRepository.findByUsernameOrEmail(institutionId, identifier)
       if (!user) {
-        await UserRepository.logAudit(institutionId, null, 'LOGIN_FAILED_USER_NOT_FOUND', req.ip, req.get('user-agent'), { email })
+        await UserRepository.logAudit(institutionId, null, 'LOGIN_FAILED_USER_NOT_FOUND', req.ip, req.get('user-agent'), { identifier })
         return res.status(401).json({ error: 'Invalid credentials' })
       }
 
       // Optional: strict role check
       if (role && user.role !== role) {
-        await UserRepository.logAudit(institutionId, user.id, 'LOGIN_FAILED_ROLE_MISMATCH', req.ip, req.get('user-agent'), { email, requestedRole: role })
+        await UserRepository.logAudit(institutionId, user.id, 'LOGIN_FAILED_ROLE_MISMATCH', req.ip, req.get('user-agent'), { identifier, requestedRole: role })
         return res.status(401).json({ error: 'Invalid credentials or role' })
       }
 

@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Send, Sparkles, AlertTriangle, AlertCircle, CheckCircle2, Users, BookOpen, CreditCard, Activity } from 'lucide-react';
+import { getApiBaseURL } from '../../../config/apiConfig';
 
 const DEMO_REPLIES = [
   "I've analyzed **847 students** across all departments. Here's the risk summary:\\n\\n🔴 **HIGH RISK — Immediate Action Required (12 students)**\\nThese students have 3+ risk factors: attendance <60%, 2+ backlogs, and disengagement signals.\\n\\n🟡 **MEDIUM RISK — Monitor Closely (34 students)**\\nAttendance between 60-75%, minor academic issues.\\n\\n🟢 **ON TRACK (801 students)**\\nPerforming within acceptable parameters.\\n\\nShall I generate **individual intervention plans** for the 12 high-risk students and notify their faculty mentors?",
@@ -47,7 +48,7 @@ export default function StudentSuccessOfficer() {
     
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch('http://localhost:3000/api/v1/officers/student-success/predict-risk', {
+      const response = await fetch(`${getApiBaseURL()}/v1/officers/student-success/predict-risk`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

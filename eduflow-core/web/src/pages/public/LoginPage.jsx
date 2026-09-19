@@ -1,10 +1,18 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { LazyMotionDiv, LazyMotionButton, LazyAnimatePresence } from '../../components/LazyMotion'
+import { LazyMotionDiv, LazyMotionButton } from '../../components/LazyMotion'
 import { useAuth } from '../../hooks/useAuth'
+import { studentDummyIds } from '../../utils/studentCatalog'
 import { useI18n } from '../../i18n'
 
 const instituteName = 'EduFlow'
+
+const roleDefaults = {
+  student: { username: studentDummyIds[0].id, password: 'student123' },
+  faculty: { username: 'faculty', password: 'faculty123' },
+  parent:  { username: 'parent',  password: 'parent123'  },
+  admin:   { username: 'admin',   password: 'admin123'   },
+}
 
 const roleInfo = {
   student: { icon: '👨‍🎓', color: '#2563EB', gradStart: '#2563EB', gradEnd: '#06B6D4', title: 'Student',  desc: 'Access your academics'  },
@@ -26,16 +34,16 @@ export default function LoginPage() {
   const { t } = useI18n()
 
   const [role, setRole] = useState('student')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState(roleDefaults.student.username)
+  const [password, setPassword] = useState(roleDefaults.student.password)
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   function handleRoleChange(nextRole) {
     setRole(nextRole)
-    setUsername('')
-    setPassword('')
+    setUsername(roleDefaults[nextRole].username)
+    setPassword(roleDefaults[nextRole].password)
     setError('')
   }
 

@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Send, Sparkles, FileText, Download, PieChart, Activity } from 'lucide-react';
+import { ArrowLeft, Send, Sparkles, FileText, Download } from 'lucide-react';
+import { getApiBaseURL } from '../../../config/apiConfig';
 
 const DEMO_REPLIES = [
   "I'll analyze your institution's data and generate the NAAC Self Study Report. Based on your Digital Twin, I can see you have 5 departments and 12 programs.\\n\\n**Starting NAAC SSR Generation...**\\n\\n✅ Chapter 1: Institutional Information — Complete\\n✅ Chapter 2: Teaching-Learning — 87% Complete\\n⚠️ Chapter 3: Research — Missing 4 publications data\\n⚠️ Chapter 4: Infrastructure — Lab utilization data needed\\n\\nShall I generate the complete draft with available data and mark gaps for your team to fill?",
@@ -50,7 +51,7 @@ export default function AccreditationOfficer() {
     
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch('http://localhost:3000/api/v1/officers/accreditation/generate', {
+      const response = await fetch(`${getApiBaseURL()}/v1/officers/accreditation/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

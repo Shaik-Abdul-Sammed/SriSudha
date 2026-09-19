@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Cpu, CheckCircle, Clock, AlertCircle, Play, Download, Circle } from 'lucide-react'
+import { ArrowLeft, Cpu, CheckCircle, Clock, Play, Download, Circle } from 'lucide-react'
 
 const PIPELINE_STEPS = [
   'Understanding Request',

@@ -1,15 +1,19 @@
 import { pool } from '../db/pool.js'
 
 export class UserRepository {
-  static async findByEmail(institutionId, email) {
+  static async findByUsernameOrEmail(institutionId, identifier) {
     const result = await pool.query(
       `SELECT u.*, i.name as inst_name, i.subscription_tier, i.primary_color, i.secondary_color, i.logo_url 
        FROM users u 
        JOIN institutions i ON u.institution_id = i.id 
-       WHERE u.institution_id = $1 AND u.email = $2`,
-      [institutionId, email]
+       WHERE u.institution_id = $1 AND (u.username = $2 OR u.email = $2)`,
+      [institutionId, identifier]
     )
     return result.rows[0]
+  }
+
+  static async findByEmail(institutionId, email) {
+    return UserRepository.findByUsernameOrEmail(institutionId, email)
   }
 
   static async findById(id) {

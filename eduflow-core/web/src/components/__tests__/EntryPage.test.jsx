@@ -11,7 +11,9 @@ describe('EntryPage', () => {
     )
 
     expect(screen.getByText(/AI Operating System/i)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Register Institution/i })).toHaveAttribute('href', '/register-institution')
+    const registerLinks = screen.getAllByRole('link', { name: /Register Institution/i })
+    expect(registerLinks.length).toBeGreaterThanOrEqual(1)
+    expect(registerLinks[0]).toHaveAttribute('href', '/register-institution')
     expect(screen.getByRole('link', { name: /Access Workspace/i })).toHaveAttribute('href', '/login')
   })
 })

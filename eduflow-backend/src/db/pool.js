@@ -31,8 +31,27 @@ function isConnectionFailure(error) {
     'getaddrinfo ENOTFOUND',
   ].some((token) => message.includes(token) || error?.code === token)
 }
-
 export const pool = {
+  async connect() {
+    if (useMemoryOnly) {
+      return {
+        query: (text, params) => memoryPool.query(text, params),
+        release: () => {},
+      }
+    }
+
+    try {
+      return await realPool.connect()
+    } catch (error) {
+      if (isConnectionFailure(error)) {
+        return {
+          query: (text, params) => memoryPool.query(text, params),
+          release: () => {},
+        }
+      }
+      throw error
+    }
+  },
   async query(text, params = []) {
     if (useMemoryOnly) {
       return memoryPool.query(text, params)

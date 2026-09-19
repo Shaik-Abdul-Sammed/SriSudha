@@ -3,9 +3,16 @@
 CREATE TABLE IF NOT EXISTS institutions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
-  slug TEXT UNIQUE NOT NULL,
-  admin_email TEXT UNIQUE NOT NULL,
-  password_hash TEXT NOT NULL,
+  slug TEXT UNIQUE,
+  subdomain TEXT UNIQUE,
+  type TEXT DEFAULT 'college',
+  short_code TEXT UNIQUE,
+  subscription_tier TEXT DEFAULT 'free',
+  primary_color TEXT DEFAULT '#2563EB',
+  secondary_color TEXT DEFAULT '#1E40AF',
+  logo_url TEXT,
+  admin_email TEXT,
+  password_hash TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -162,8 +169,11 @@ CREATE TABLE IF NOT EXISTS users (
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
   role TEXT NOT NULL CHECK (role IN ('student', 'faculty', 'parent', 'admin')),
   username TEXT NOT NULL,
+  email TEXT,
   password_hash TEXT NOT NULL,
   name TEXT NOT NULL,
+  first_name TEXT,
+  last_name TEXT,
   metadata JSONB DEFAULT '{}',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -225,3 +235,19 @@ CREATE TABLE IF NOT EXISTS lor_requests (
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- ============================================
+-- Recent Searches (Search persistence & audit)
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS recent_searches (
+  id SERIAL PRIMARY KEY,
+  role TEXT NOT NULL,
+  query TEXT NOT NULL,
+  route_path TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (role, route_path)
+);
+
+CREATE INDEX IF NOT EXISTS recent_searches_role_created_idx ON recent_searches (role, created_at DESC);
+

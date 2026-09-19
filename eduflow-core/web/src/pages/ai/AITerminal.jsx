@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Send, Paperclip, Bot, Building, Cpu, Database, Package, Settings, BarChart3, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Send, Paperclip, Bot, Building, Cpu, Database, Package, Settings, BarChart3, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const DEMO_ONBOARDING_REPLIES = [
   "Welcome to EduFlow AI OS! 🎓 I'm your institution's autonomous software engineer. I'll help you build and maintain a professional Flutter app for your institution — no developers needed.\n\nLet's start! **What is the name of your institution?**",
