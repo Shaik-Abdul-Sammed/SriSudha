@@ -54,3 +54,52 @@ temp/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Backend build/dist
+backend/dist/
+backend/build/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+postgres_data/
+redis_data/
+
+# Docker volumes
+volumes/
+data/
+
+# VSCode settings (user-specific)
+.vscode/settings.json
+.vscode/launch.json
+
+# Runtime
+.pid
+
+# Next.js
+.next/
+out/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.a
+*.apk
+*.aab
+*.app
+*.app.zip
+*.dylib
+*.exe
+*.framework
+*.ipa
+*.lib
+*.so
+
+# macOS
+.DS_Store

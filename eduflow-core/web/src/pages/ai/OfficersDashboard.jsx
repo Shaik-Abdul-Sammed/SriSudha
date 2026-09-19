@@ -1,0 +1,320 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Cpu, Bell, Settings, ArrowUp, ArrowDown, Clock, TrendingUp, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { getApiBaseURL } from '../../config/apiConfig';
+
+const OFFICER_META = {
+  'accreditation': { icon: '🏛️', color: '#8B5CF6', name: 'AI Accreditation Officer', desc: 'NAAC, NBA, AICTE & UGC report generation, gap analysis, readiness scoring', statLabel: 'Reports Generated' },
+  'timetable': { icon: '📅', color: '#2563EB', name: 'AI Timetable Officer', desc: 'Conflict-free timetable generation considering faculty workload and room availability', statLabel: 'Conflicts Resolved' },
+  'admissions': { icon: '🎓', color: '#10B981', name: 'AI Admission Officer', desc: 'End-to-end admissions automation — queries, verification, documents, counselling', statLabel: 'Applications Processed' },
+  'finance': { icon: '💰', color: '#F59E0B', name: 'AI Finance Officer', desc: 'Fee reconciliation, UPI matching, bank statement analysis, scholarship tracking', statLabel: 'Amount Reconciled' },
+  'student-success': { icon: '📊', color: '#EF4444', name: 'AI Student Success Officer', desc: 'Dropout prediction, attendance monitoring, placement readiness, intervention plans', statLabel: 'Students Monitored' }
+};
+
+export default function OfficersDashboard() {
+  const [roi, setRoi] = useState(null);
+  const [officers, setOfficers] = useState([]);
+  const [recentActivity, setRecentActivity] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('accessToken');
+      const headers = { 'Authorization': `Bearer ${token}` };
+      const baseUrl = getApiBaseURL() + '/v1/officers';
+      
+      try {
+        const [officersRes, roiRes] = await Promise.all([
+          fetch(baseUrl, { headers }),
+          fetch(`${baseUrl}/roi/summary`, { headers })
+        ]);
+
+        if (officersRes.ok && roiRes.ok) {
+          const oData = await officersRes.json();
+          const rData = await roiRes.json();
+          
+          setOfficers(oData.officers);
+          setRecentActivity(oData.recentActivity);
+          setRoi(rData);
+        }
+      } catch (err) {
+        console.error('Failed to fetch dashboard data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: '#0A0E27',
+      color: 'white',
+      fontFamily: '"Inter", sans-serif',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <style>
+        {`
+          @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+          }
+          @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0px); }
+          }
+          .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+          }
+          .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          .officer-card {
+            transition: all 0.2s ease-in-out;
+          }
+          .officer-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--hover-color, rgba(255, 255, 255, 0.2));
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          }
+        `}
+      </style>
+
+      {/* Top Navbar */}
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        background: 'rgba(10, 14, 39, 0.8)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        padding: '1rem 2rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Cpu color="#60a5fa" size={28} />
+          <span style={{ fontSize: '1.25rem', fontWeight: 'bold' }} className="gradient-text">
+            EduFlow AI OS
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <span style={{ fontWeight: 500 }}>Springfield Engineering College</span>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '0.375rem',
+            background: 'rgba(16, 185, 129, 0.1)', color: '#10B981',
+            padding: '0.25rem 0.75rem', borderRadius: '999px', fontSize: '0.875rem'
+          }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }} />
+            AI Online
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <Bell size={20} style={{ cursor: 'pointer', opacity: 0.7 }} />
+          <Settings size={20} style={{ cursor: 'pointer', opacity: 0.7 }} />
+          <div style={{
+            width: '36px', height: '36px', borderRadius: '50%',
+            background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontWeight: 'bold', fontSize: '0.875rem'
+          }}>
+            SA
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: '2rem', maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
+        
+        {/* Hero ROI Bar */}
+        <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2.5rem' }}>
+          {loading ? (
+             <div>Loading ROI data...</div>
+          ) : (
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem'
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem' }}>
+                <Clock size={16} /> Hours Saved This Month
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>{roi?.totalHoursSaved || 0}</span>
+                <span style={{ fontSize: '0.875rem', color: '#10B981', display: 'flex', alignItems: 'center' }}><ArrowUp size={14} /> Active</span>
+              </div>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem' }}>
+                <TrendingUp size={16} /> Money Saved
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>₹{roi?.totalMoneySaved?.toLocaleString() || 0}</span>
+                <span style={{ fontSize: '0.875rem', color: '#10B981', display: 'flex', alignItems: 'center' }}><ArrowUp size={14} /> Active</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem' }}>
+                <CheckCircle2 size={16} /> Accreditation Score
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>{roi?.accreditationScore || 0}%</span>
+                <span style={{ fontSize: '0.875rem', color: '#10B981', display: 'flex', alignItems: 'center' }}><ArrowUp size={14} /> Stable</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem' }}>
+                <ShieldAlert size={16} /> Student Risk Alerts
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>{roi?.studentRiskAlerts || 0}</span>
+                <span style={{ fontSize: '0.875rem', color: '#EF4444', display: 'flex', alignItems: 'center' }}><ArrowDown size={14} /> Pending</span>
+              </div>
+            </div>
+          </div>
+          )}
+        </div>
+
+        {/* Your AI Officers */}
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Your AI Officers</h2>
+        
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '3rem'
+        }}>
+          {loading ? <div>Loading Officers...</div> : officers.map(officer => {
+            const meta = OFFICER_META[officer.id];
+            const officerRoi = roi?.byOfficer?.find(o => o.type === officer.id);
+            return (
+              <div key={officer.id} className="glass-card officer-card" style={{
+                padding: '1.5rem', display: 'flex', flexDirection: 'column', '--hover-color': meta.color
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                  <div style={{
+                    width: '48px', height: '48px', borderRadius: '50%',
+                    background: `${meta.color}20`, border: `1px solid ${meta.color}40`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem'
+                  }}>
+                    {meta.icon}
+                  </div>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '0.375rem',
+                    background: officer.status === 'available' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                    color: officer.status === 'available' ? '#10B981' : '#F59E0B',
+                    padding: '0.25rem 0.75rem', borderRadius: '999px', fontSize: '0.75rem',
+                    textTransform: 'capitalize'
+                  }}>
+                    <div style={{
+                      width: '6px', height: '6px', borderRadius: '50%',
+                      background: officer.status === 'available' ? '#10B981' : '#F59E0B',
+                      animation: officer.status === 'working' ? 'pulse 2s infinite' : 'none'
+                    }} />
+                    {officer.status === 'working' ? 'Working...' : 'Available'}
+                  </div>
+                </div>
+                
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{meta.name}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', lineHeight: '1.5', flexGrow: 1, marginBottom: '1.25rem' }}>
+                  {meta.desc}
+                </p>
+                
+                <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '8px', padding: '0.75rem', marginBottom: '1.5rem' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.25rem' }}>
+                    Hours Saved
+                  </div>
+                  <div style={{ fontWeight: 'bold' }}>{officerRoi?.hoursSaved || 0} hrs</div>
+                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem', paddingTop: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                    <Clock size={12} style={{ display: 'inline', marginRight: '4px', position: 'relative', top: '-1px' }}/>
+                    {officer.lastAction}
+                  </div>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                  <Link to={`/officer/${officer.id}`} style={{
+                    flex: 1, background: '#2563EB', color: 'white', textDecoration: 'none',
+                    textAlign: 'center', padding: '0.625rem', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 500,
+                    transition: 'background 0.2s'
+                  }} onMouseOver={e => e.target.style.background = '#1d4ed8'} onMouseOut={e => e.target.style.background = '#2563EB'}>
+                    Open
+                  </Link>
+                  <Link to="/admin/audit-logs?category=Officers" style={{
+                    flex: 1, background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'white',
+                    textAlign: 'center', padding: '0.625rem', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 500,
+                    cursor: 'pointer', transition: 'background 0.2s', textDecoration: 'none'
+                  }} onMouseOver={e => e.target.style.background = 'rgba(255,255,255,0.05)'} onMouseOut={e => e.target.style.background = 'transparent'}>
+                    View History
+                  </Link>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Recent Activity */}
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Recent AI Activity</h2>
+        
+        <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {recentActivity.length === 0 ? <div style={{ color: 'rgba(255,255,255,0.5)' }}>No recent activity to show.</div> : null}
+            {recentActivity.map((activity, idx) => {
+              const meta = OFFICER_META[activity.officer.toLowerCase()] || {};
+              return (
+                <React.Fragment key={idx}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '1rem 0' }}>
+                    <div style={{
+                      width: '40px', height: '40px', borderRadius: '50%', flexShrink: 0,
+                      background: `${meta.color || '#fff'}20`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem'
+                    }}>
+                      {meta.icon || '🤖'}
+                    </div>
+                    <div style={{ flexGrow: 1 }}>
+                      <div style={{ fontSize: '0.875rem', fontWeight: 'bold', color: meta.color || '#fff', marginBottom: '0.25rem' }}>
+                        {meta.name || activity.officer}
+                      </div>
+                      <div style={{ fontSize: '0.95rem' }}>
+                        {activity.metadata?.actionType || 'General Request'} processed
+                      </div>
+                    </div>
+                    <div style={{
+                      fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.05)',
+                      padding: '0.25rem 0.5rem', borderRadius: '4px', whiteSpace: 'nowrap'
+                    }}>
+                      {new Date(activity.time).toLocaleString()}
+                    </div>
+                  </div>
+                  {idx < recentActivity.length - 1 && (
+                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', marginLeft: '56px' }} />
+                  )}
+                </React.Fragment>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Bottom Nav Links */}
+        <div style={{
+          display: 'flex', justifyContent: 'center', gap: '2rem', padding: '2rem 0',
+          borderTop: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem'
+        }}>
+          <Link to="/ai-terminal" style={{ color: 'inherit', textDecoration: 'none' }} onMouseOver={e => e.target.style.color = 'white'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.6)'}>AI Terminal</Link>
+          <Link to="/digital-twin" style={{ color: 'inherit', textDecoration: 'none' }} onMouseOver={e => e.target.style.color = 'white'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.6)'}>Digital Twin</Link>
+          <Link to="/build-manager" style={{ color: 'inherit', textDecoration: 'none' }} onMouseOver={e => e.target.style.color = 'white'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.6)'}>Build Manager</Link>
+          <span style={{ cursor: 'pointer' }} onMouseOver={e => e.target.style.color = 'white'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.6)'}>Settings</span>
+        </div>
+        
+      </div>
+    </div>
+  );
+}

@@ -1,15 +1,15 @@
-# Sri Sudha ERP - Complete Educational Resource Planning System
+# EduFlow Colleges - Complete Educational Resource Planning System
 
 ![Tests Passing](https://img.shields.io/badge/tests-26%2F26%20passing-brightgreen)
 ![Code Quality](https://img.shields.io/badge/lint-0%20errors-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-60%25%2B-blue)
 ![Security](https://img.shields.io/badge/security-headers%20configured-blue)
-![Docker](https://img.shields.io/badge/docker-ready-blue)
+![Docker](https://img.shields.io/badge/docker-optional-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 🎯 Overview
 
-Sri Sudha is a production-ready ERP system for educational institutions with comprehensive features including global search, role-based access, i18n support, and persistent data management. All 20 planned improvements have been implemented.
+EduFlow Junior College and Sri Lakshmi Venkateswara Degree College in Dhone (Dronachalam), Andhra Pradesh, function as a cohesive educational pathway providing quality intermediate and higher education to rural and urban students in the Nandyal region. At the intermediate level, the junior college offers essential pre-university foundational courses including MPC (Mathematics, Physics, Chemistry), BiPC (Biology, Physics, Chemistry), and CEC (Commerce, Economics, Civics), transitioning smoothly into undergraduate degree streams such as Bachelor of Science (B.Sc.), Bachelor of Commerce (B.Com.), and Bachelor of Arts (B.A.). The campus features structured facilities that include standard digital and physical classrooms, specialized science laboratories for intermediate and degree experiments, a resourceful academic library, and dedicated outdoor spaces for sports and physical training. Driven by a dedicated and accessible teaching faculty, the college maps out strong professional outcomes by training students for higher university admissions, competitive public sector exams, and professional roles, alongside coordinating career guidance pipelines with training units like the local Sri Lakshmi Venkateswara Defence Academy. The institution's notable achievements center around maintaining a high local academic reputation, running active skill-development programs to elevate rural student employability, and consistently hosting community engagement initiatives, social service programs, and national milestone broadcasts to develop scientific and moral values among its student body.
 
 ## ✨ Key Features
 
@@ -45,16 +45,15 @@ Sri Sudha is a production-ready ERP system for educational institutions with com
 
 ### Prerequisites
 - Node.js 18.x or 20.x
-- Docker & Docker Compose (optional)
-- PostgreSQL 15 (or use Docker)
-- Redis (or use Docker)
+- Docker & Docker Compose, only if you want to run the container stack
+- PostgreSQL 15 and Redis, only if you want to run the external services locally
 
 ### Option 1: Local Development
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/Abdul9010150809/SriSudha.git
-cd SriSudha
+git clone https://github.com/Abdul9010150809/SriVenkateswara.git
+cd SriVenkateswara
 
 # 2. Setup environment
 cp .env.example .env
@@ -63,28 +62,25 @@ cp .env.example .env
 npm --prefix frontend install
 npm --prefix backend install
 
-# 4. Start PostgreSQL and Redis (or use Docker)
-# Make sure they're running on localhost:5432 and localhost:6379
-
-# 5. Start backend
+# 4. Start backend in memory-backed mode
 npm --prefix backend run dev
 # Backend runs on http://localhost:4000
 
-# 6. Start frontend (in new terminal)
+# 5. Start frontend (in new terminal)
 npm --prefix frontend run dev
 # Frontend runs on http://localhost:5173
 
-# 7. Run tests
+# 6. Run tests
 npm --prefix frontend run test
 npm --prefix backend test
 ```
 
-### Option 2: Docker Compose (Recommended)
+### Option 2: Docker Compose
 
 ```bash
 # 1. Clone and setup
-git clone https://github.com/Abdul9010150809/SriSudha.git
-cd SriSudha
+git clone https://github.com/Abdul9010150809/SriVenkateswara.git
+cd SriVenkateswara
 cp .env.example .env
 
 # 2. Start everything
@@ -102,6 +98,8 @@ docker-compose logs -f
 # 5. Stop everything
 docker-compose down
 ```
+
+If Docker access is blocked on the machine, use the local development path above. The backend now falls back to an in-memory store for the recent search and backup flows when no Postgres URL is configured.
 
 ## 📋 Running Tests
 
@@ -161,7 +159,7 @@ npm --prefix frontend run lint
 ## 📁 Project Structure
 
 ```
-SriSudha/
+SriVenkateswara/
 ├── frontend/                 # React application
 │   ├── src/
 │   │   ├── components/      # React components
@@ -258,7 +256,7 @@ const filtered = applyFilters(items, {
 
 ## 📱 PWA Support
 
-Sri Sudha is a Progressive Web App:
+EduFlow is a Progressive Web App:
 - Install as app on mobile/desktop
 - Works offline with service worker
 - Background sync for offline actions
@@ -345,7 +343,7 @@ refactor: Refactor code
 
 - Documentation: [API_DOCUMENTATION.md](./backend/API_DOCUMENTATION.md)
 - Issues: GitHub Issues
-- Email: support@srisudha.edu
+- Email: support@eduflow.edu
 
 ## 📄 License
 
