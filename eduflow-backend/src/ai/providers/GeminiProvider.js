@@ -18,6 +18,18 @@ export class GeminiProvider extends BaseProvider {
     return result.response.text()
   }
 
+  async *chatStream(messages, systemPrompt = '') {
+    const model = this.client.getGenerativeModel({ model: this.modelName, systemInstruction: systemPrompt })
+    const history = messages.slice(0, -1).map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }))
+    const chatSession = model.startChat({ history })
+    const lastMsg = messages[messages.length - 1]
+    const result = await chatSession.sendMessageStream(lastMsg.content)
+    for await (const chunk of result.stream) {
+      const text = chunk.text()
+      if (text) yield text
+    }
+  }
+
   async extractStructured(text, schema) {
     const model = this.client.getGenerativeModel({ model: this.modelName })
     const prompt = `Extract structured information from the following text and return ONLY valid JSON matching this schema:\n${JSON.stringify(schema, null, 2)}\n\nText:\n${text}\n\nRespond with ONLY the JSON object, no explanation.`
