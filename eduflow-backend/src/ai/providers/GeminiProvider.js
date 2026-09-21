@@ -6,7 +6,7 @@ export class GeminiProvider extends BaseProvider {
     super()
     if (!process.env.AI_API_KEY) throw new Error('AI_API_KEY is required for Gemini provider')
     this.client = new GoogleGenerativeAI(process.env.AI_API_KEY)
-    this.modelName = process.env.AI_MODEL || 'gemini-2.0-flash'
+    this.modelName = process.env.AI_MODEL || 'gemini-flash-latest'
   }
 
   async chat(messages, systemPrompt = '') {
